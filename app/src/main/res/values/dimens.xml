@@ -4,4 +4,9 @@
     <dimen name="textSmall">20sp</dimen>
     <dimen name="btnWidthSmall">120dp</dimen>
     <dimen name="btnHeightSmall">55dp</dimen>
+    <dimen name="editTextWidth">120dp</dimen>
+    <dimen name="editTextHeight">53dp</dimen>
+    <dimen name="btnWidthLarge">120dp</dimen>
+    <dimen name="btnHeightLarge">53dp</dimen>
+    <dimen name="margin">45dp</dimen>
 </resources>

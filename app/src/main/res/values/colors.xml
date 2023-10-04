@@ -7,4 +7,5 @@
     <color name="bgEndColor">#0B42AB</color>
 
     <color name="buttonColor">#40001026</color>
+    <color name="whiteTransparent">#90FFFFFF</color>
 </resources>

@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">sunnie</string>
-    <string name="deneme">deneme</string>
-    <string name="sunny">sunny</string>
+    <string name="tvSignIn">sign in</string>
+    <string name="tvSignUp">sign up</string>
+    <string name="tvWelcome">welcome\nback</string>
+    <string name="tvCreateAcc">create\naccount</string>
+    <string name="tvForgotPassword">forgot password?</string>
+    <string name="tvEmail">email</string>
+    <string name="tvPassword">password</string>
+    <string name="tvOr">or</string>
+    <string name="tvSignInGoogle">sign in with Google</string>
+    <string name="tvNotRegistered">not yet registered? sign up</string>
+    <string name="tvAlreadyUser">already a user? sign in</string>
 </resources>

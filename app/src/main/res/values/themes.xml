@@ -14,11 +14,38 @@
         <item name="fontFamily">@font/sfproregular</item>
     </style>
 
+    <style name="textSmall">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/textSmall</item>
+        <item name="fontFamily">@font/sfpromedium</item>
+    </style>
+
     <style name="buttonSmall">
         <item name="backgroundTint">@color/buttonColor</item>
         <item name="android:background">@drawable/bg_button</item>
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="android:width">@dimen/btnWidthSmall</item>
         <item name="android:height">@dimen/btnHeightSmall</item>
+    </style>
+
+    <style name="buttonLarge">
+        <item name="backgroundTint">@color/buttonColor</item>
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textSize">@dimen/textSmall</item>
+        <item name="android:width">@dimen/btnWidthLarge</item>
+        <item name="android:height">@dimen/btnHeightLarge</item>
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+    </style>
+
+    <style name="editText">
+        <item name="backgroundTint">@color/buttonColor</item>
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textSize">@dimen/textSmall</item>
+        <item name="android:width">@dimen/editTextWidth</item>
+        <item name="android:height">@dimen/editTextHeight</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
     </style>
 </resources>
