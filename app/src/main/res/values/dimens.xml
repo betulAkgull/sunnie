@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header">64sp</dimen>
+    <dimen name="textSmall">20sp</dimen>
+    <dimen name="btnWidthSmall">120dp</dimen>
+    <dimen name="btnHeightSmall">55dp</dimen>
+</resources>

@@ -5,4 +5,6 @@
     <color name="bgStartColor">#08244F</color>
     <color name="bgCenterColor">#134CB5</color>
     <color name="bgEndColor">#0B42AB</color>
+
+    <color name="buttonColor">#40001026</color>
 </resources>
