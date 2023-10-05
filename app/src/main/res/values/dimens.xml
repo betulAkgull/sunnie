@@ -2,6 +2,7 @@
 <resources>
     <dimen name="header">64sp</dimen>
     <dimen name="textSmall">20sp</dimen>
+    <dimen name="textLarge">40sp</dimen>
     <dimen name="btnWidthSmall">120dp</dimen>
     <dimen name="btnHeightSmall">55dp</dimen>
     <dimen name="editTextWidth">120dp</dimen>
