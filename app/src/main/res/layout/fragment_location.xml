@@ -27,27 +27,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mCardView"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="12dp"
-        app:cardUseCompatPadding="true"
+        android:background="@drawable/bg_layout"
+        app:iconifiedByDefault="false"
+        android:layout_margin="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_header">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:searchIcon="@drawable/ic_search"
-            app:iconifiedByDefault="false"
-            app:queryHint="search for a location" />
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toBottomOf="@id/tv_header"
+        app:queryHint="search for a location"
+        app:searchIcon="@drawable/ic_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -57,6 +48,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mCardView"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
         tools:listitem="@layout/item_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>

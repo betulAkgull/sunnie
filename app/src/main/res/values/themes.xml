@@ -3,6 +3,7 @@
     <style name="Base.Theme.Weatherapp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="fontFamily">@font/sfpromedium</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/whiteTransparent</item>
     </style>
 
     <style name="Theme.Weatherapp" parent="Base.Theme.Weatherapp" />
