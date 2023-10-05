@@ -37,10 +37,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_header"
+        app:layout_constraintBottom_toTopOf="@+id/rv_location"
         app:queryHint="search for a location"
         app:searchIcon="@drawable/ic_search" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_location"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
