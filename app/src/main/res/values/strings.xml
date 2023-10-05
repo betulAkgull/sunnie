@@ -14,4 +14,6 @@
     <string name="imageview">imageview</string>
     <string name="iv">iv</string>
     <string name="tvLocation">location</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise</string>
 </resources>

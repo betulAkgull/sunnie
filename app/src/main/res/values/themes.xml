@@ -19,6 +19,12 @@
         <item name="fontFamily">@font/sfproregular</item>
     </style>
 
+    <style name="textMedium">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="fontFamily">@font/sfprobold</item>
+    </style>
+
     <style name="textLarge">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textLarge</item>
@@ -27,6 +33,10 @@
 
     <style name="cardItem">
         <item name="android:background">@drawable/bg_gradient</item>
+    </style>
+
+    <style name="layoutBackground">
+        <item name="android:background">@drawable/bg_layout</item>
     </style>
 
     <style name="buttonSmall">
