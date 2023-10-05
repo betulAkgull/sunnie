@@ -11,4 +11,6 @@
     <string name="tvSignInGoogle">sign in with Google</string>
     <string name="tvNotRegistered">not yet registered? sign up</string>
     <string name="tvAlreadyUser">already a user? sign in</string>
+    <string name="imageview">imageview</string>
+    <string name="iv">iv</string>
 </resources>
