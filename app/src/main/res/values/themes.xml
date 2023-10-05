@@ -17,7 +17,7 @@
     <style name="textSmall">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textSmall</item>
-        <item name="fontFamily">@font/sfpromedium</item>
+        <item name="fontFamily">@font/sfproregular</item>
     </style>
 
     <style name="buttonSmall">
