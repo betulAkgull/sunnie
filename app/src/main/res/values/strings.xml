@@ -13,7 +13,8 @@
     <string name="tvAlreadyUser">already a user? sign in</string>
     <string name="imageview">imageview</string>
     <string name="iv">iv</string>
-    <string name="tvLocation">location</string>
+    <string name="tvLocation">locations</string>
+    <string name="tvMyLocations">my locations</string>
     <string name="sunset">Sunset</string>
     <string name="sunrise">Sunrise</string>
 </resources>

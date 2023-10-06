@@ -21,25 +21,13 @@
         style="@style/textLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/tvLocation"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/tvMyLocations"
+        app:layout_constraintBottom_toTopOf="@+id/rv_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_layout"
-        android:layout_margin="30dp"
-        app:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_header"
-        app:layout_constraintBottom_toTopOf="@+id/rv_location"
-        app:queryHint="search for a location"
-        app:searchIcon="@drawable/ic_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_location"
@@ -50,6 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:listitem="@layout/item_location" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_header"
+        tools:listitem="@layout/item_saved_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>
