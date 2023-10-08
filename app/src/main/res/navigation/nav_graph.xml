@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.weatherapp.ui.splash.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/splahToSignin"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/splashToSignup"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.weatherapp.ui.signin.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/signinToSplash"
+            app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/signinToSignup"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/signinToHome"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.weatherapp.ui.signup.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/signupToSplash"
+            app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/signupToHome"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.weatherapp.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.weatherapp.ui.location.LocationFragment"
+        android:label="LocationFragment"
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/locationToHome"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedLocationFragment"
+        android:name="com.example.weatherapp.ui.savedlocation.SavedLocationFragment"
+        android:label="SavedLocationFragment"
+        tools:layout="@layout/fragment_saved_location">
+        <action
+            android:id="@+id/savedLocationToHome"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

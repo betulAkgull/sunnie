@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:icon="@drawable/ic_location_add"
+        android:title="locations">
+
+        <menu>
+
+            <item
+                android:id="@+id/homeFragment"
+                android:title="Istanbul"
+                android:icon="@drawable/clear_day"
+                android:tooltipText="13"
+                />
+
+            <item android:title="Denizli" />
+
+            <item android:title="Paris" />
+
+        </menu>
+
+    </item>
+
+
+</menu>
+
