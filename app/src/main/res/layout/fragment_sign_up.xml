@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <TextView
-        android:id="@+id/tv_not_registered"
+        android:id="@+id/tv_already_user"
         style="@style/textSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
