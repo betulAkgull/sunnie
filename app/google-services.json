@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "722599537089",
+    "project_id": "sunnieapp-4b327",
+    "storage_bucket": "sunnieapp-4b327.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722599537089:android:c2d3cd204dc5b2ff47e740",
+        "android_client_info": {
+          "package_name": "com.example.weatherapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvpTBROkfaquNVSrTbW0VsiDbuN6Jgf6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
