@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.repository.UserRepo
 import com.google.firebase.auth.FirebaseUser
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthViewModel @Inject constructor(private val repo: UserRepo) : ViewModel() {
 
     private var _authState = MutableLiveData<AuthState>()
