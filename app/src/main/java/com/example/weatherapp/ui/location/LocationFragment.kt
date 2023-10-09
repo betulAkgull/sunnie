@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import com.example.weatherapp.R
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.databinding.FragmentLocationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LocationFragment : Fragment(R.layout.fragment_location) {
 
     private val binding by viewBinding(FragmentLocationBinding::bind)
