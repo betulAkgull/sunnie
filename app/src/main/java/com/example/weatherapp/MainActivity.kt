@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
             toggle.syncState()
 
 
-            val header = navView.inflateHeaderView(R.layout.nav_view_header)
-           // header.findViewById<TextView>(R.id.tv_title).text = "Header"
-
             onBackPressedDispatcher.addCallback(
                 this@MainActivity,
                 object : OnBackPressedCallback(true) {
