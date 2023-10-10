@@ -72,6 +72,7 @@
         <item name="android:width">@dimen/editTextWidth</item>
         <item name="android:height">@dimen/editTextHeight</item>
         <item name="android:paddingStart">20dp</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginLeft">@dimen/margin</item>
         <item name="android:layout_marginRight">@dimen/margin</item>
     </style>
