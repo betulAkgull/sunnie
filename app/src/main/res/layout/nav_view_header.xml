@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="30dp">
+    android:background="@drawable/bg_half_curved_layout"
+    android:padding="50dp">
 
 
     <ImageView
@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_star"
         android:contentDescription="@string/imageview"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintEnd_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_map"
         android:contentDescription="@string/imageview"
+        android:src="@drawable/ic_map"
         app:layout_constraintBottom_toBottomOf="@+id/tv_location"
         app:layout_constraintEnd_toStartOf="@+id/tv_location"
         app:layout_constraintStart_toStartOf="@+id/imageView5"
@@ -60,8 +60,8 @@
         android:id="@+id/imageView6"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_raindrop"
         android:contentDescription="@string/imageview"
+        android:src="@drawable/ic_raindrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_high_degree"
         app:layout_constraintTop_toTopOf="@+id/tv_high_degree" />
@@ -72,9 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:text="@string/_13_u00b0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/_13_u00b0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
