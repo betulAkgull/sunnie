@@ -93,20 +93,28 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@drawable/bg_curved_gradient"
-        app:headerLayout="@layout/nav_view_header"
         tools:openDrawer="start">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <include
+                android:id="@+id/nav_view_header"
+                layout="@layout/nav_view_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_location_add"
                 android:contentDescription="@string/imageview"
+                android:src="@drawable/ic_location_add"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                 app:layout_constraintEnd_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_title" />
@@ -117,12 +125,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/locations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/nav_view_header" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_drawer_locations"
@@ -142,12 +150,21 @@
                 style="@style/buttonLarge"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/editTextHeight"
-                android:layout_marginTop="200dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/manage_locations"
+                app:layout_constraintBottom_toTopOf="@id/layout_user_info"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_drawer_locations" />
+                app:layout_constraintStart_toStartOf="parent" />
 
+
+            <include
+                android:id="@+id/layout_user_info"
+                layout="@layout/drawer_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
