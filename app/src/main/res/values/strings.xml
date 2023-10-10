@@ -17,4 +17,9 @@
     <string name="tvMyLocations">my locations</string>
     <string name="sunset">Sunset</string>
     <string name="sunrise">Sunrise</string>
+    <string name="manage_locations">manage locations</string>
+    <string name="current_location">current location</string>
+    <string name="istanbul">Istanbul</string>
+    <string name="_13_u00b0">13°</string>
+    <string name="locations">locations</string>
 </resources>

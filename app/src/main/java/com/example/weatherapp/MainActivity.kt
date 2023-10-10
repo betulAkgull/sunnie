@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.viewBinding
+import com.example.weatherapp.common.visible
 import com.example.weatherapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +31,14 @@ class MainActivity : AppCompatActivity() {
             val toggle = ActionBarDrawerToggle(this@MainActivity, drawerLayout, toolbar, 0, 0)
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
+
+            navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.homeFragment) {
+                    toolbar.visible()
+                } else {
+                    toolbar.gone()
+                }
+            }
 
 
             onBackPressedDispatcher.addCallback(

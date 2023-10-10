@@ -6,55 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
-    <ImageView
-        android:id="@+id/iv_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/iv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu" />
-
-
-    <ImageView
-        android:id="@+id/iv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:contentDescription="@string/imageview"
-        android:src="@drawable/ic_map"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_menu"
-        app:layout_constraintStart_toEndOf="@id/iv_menu"
-        app:layout_constraintTop_toTopOf="@id/iv_menu"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <TextView
-        android:id="@+id/tv_location"
-        style="@style/textSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_location"
-        app:layout_constraintStart_toEndOf="@+id/iv_location"
-        app:layout_constraintTop_toTopOf="@+id/iv_location"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Istanbul" />
-
-    <ImageView
-        android:id="@+id/ic_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:contentDescription="@string/imageview"
-        android:src="@drawable/ic_notif"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_location"
-        app:layout_constraintTop_toTopOf="@+id/tv_location" />
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_location"
+        app:layout_constraintTop_toTopOf="parent"
         tools:contentDescription="scrollview">
 
         <androidx.constraintlayout.widget.ConstraintLayout
