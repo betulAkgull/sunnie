@@ -2,20 +2,24 @@ package com.example.weatherapp
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
 import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.ui.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +44,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            layoutUserInfo.ivLogout.setOnClickListener {
+                viewModel.logout()
+                navHostFragment.findNavController().navigate(R.id.splashFragment)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
 
+            viewModel.currentUser?.let {
+                layoutUserInfo.tvUserEmail.text = viewModel.currentUser?.email.toString()
+            }
 
             onBackPressedDispatcher.addCallback(
                 this@MainActivity,

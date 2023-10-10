@@ -25,6 +25,11 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         observeData()
 
         with(binding) {
+
+            btnBack.setOnClickListener {
+             findNavController().navigate(R.id.signinToSplash)
+            }
+
             btnSignIn.setOnClickListener {
                 val email = etEmail.text.toString()
                 val password = etPassword.text.toString()
