@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_gradient"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
 
     <ImageView
         android:id="@+id/btn_back"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -20,100 +20,130 @@
         style="@style/textHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/tvWelcome"
         android:textAlignment="center"
-        android:layout_marginTop="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/et_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <EditText
-        style="@style/editText"
         android:id="@+id/et_email"
+        style="@style/editText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:textColorHint="@color/whiteTransparent"
-        android:layout_marginTop="45dp"
+        android:autofillHints="emailAddress"
         android:hint="@string/tvEmail"
         android:inputType="textEmailAddress"
+        android:textColorHint="@color/whiteTransparent"
+        app:layout_constraintBottom_toTopOf="@+id/et_password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_header"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/et_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_header"
-        android:autofillHints="emailAddress" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        style="@style/editText"
         android:id="@+id/et_password"
+        style="@style/editText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:textColorHint="@color/whiteTransparent"
-        android:layout_marginTop="30dp"
+        android:autofillHints="emailAddress"
         android:hint="@string/tvPassword"
         android:inputType="textPassword"
+        android:textColorHint="@color/whiteTransparent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_forgot_password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/et_email"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_sign_in"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_email"
-        android:autofillHints="emailAddress" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/textSmall"
         android:id="@+id/tv_forgot_password"
+        style="@style/textSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="@dimen/margin"
+        android:gravity="end"
         android:text="@string/tvForgotPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sign_in_google"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_or"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_password"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
-        style="@style/buttonLarge"
         android:id="@+id/btn_sign_in"
+        style="@style/buttonLarge"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:layout_marginTop="30dp"
         android:text="@string/tvSignIn"
+        app:layout_constraintBottom_toTopOf="@+id/tv_or"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/et_password"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_sign_in_google"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/textSmall"
         android:id="@+id/tv_or"
+        style="@style/textSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="30dp"
         android:text="@string/tvOr"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_in_google"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_forgot_password"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_not_registered"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
-        style="@style/buttonLarge"
         android:id="@+id/btn_sign_in_google"
+        style="@style/buttonLarge"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:layout_marginTop="30dp"
-        android:text="@string/tvSignInGoogle"
         android:drawableLeft="@drawable/ic_google"
+        android:text="@string/tvSignInGoogle"
+        app:layout_constraintBottom_toTopOf="@+id/tv_not_registered"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sign_in"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_forgot_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_or" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_or"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/textSmall"
         android:id="@+id/tv_not_registered"
+        style="@style/textSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="30dp"
         android:text="@string/tvNotRegistered"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_or"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_google"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_google"
+        app:layout_constraintVertical_bias="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
