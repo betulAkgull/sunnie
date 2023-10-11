@@ -1,6 +1,7 @@
 package com.example.weatherapp.data.repository
 
-import android.util.Log
+import com.example.weatherapp.BuildConfig
+import com.example.weatherapp.common.Constants
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.source.remote.WeatherService
@@ -18,17 +19,18 @@ class WeatherRepository(
 
         return try {
 
+
             val result = weatherService.getWeatherData(
                 latitude,
                 longitude,
-                "metric",
-                "datetime,name,tempmax,tempmin,temp,humidity,precipprob,windspeed,uvindex,sunrise,sunset,icon",
-                "days",
-                "WB6X663R7Y89VDG6J2Q656DLQ",
-                "json"
+                Constants.unitGroup,
+                Constants.elements,
+                Constants.days,
+                BuildConfig.API_KEY,
+                Constants.contentType
             ).days
 
-            Log.e("repo", result.toString())
+
 
             if (result.isNullOrEmpty()) {
                 Resource.Error(Exception("error"))
