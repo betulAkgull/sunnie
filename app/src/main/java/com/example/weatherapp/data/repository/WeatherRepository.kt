@@ -8,12 +8,11 @@ import com.example.weatherapp.data.source.remote.WeatherService
 
 class WeatherRepository(
     private val weatherService: WeatherService
-    //private val locationService: LocationService
 
 ) {
 
-
     suspend fun getWeatherData(): Resource<List<Day>> {
+
         val latitude = 40.7128 // Replace with your actual latitude value
         val longitude = -74.0060 // Replace with your actual longitude value
 
