@@ -4,6 +4,7 @@ import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.common.Constants
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.source.remote.WeatherService
 
 class WeatherRepository(
@@ -11,17 +12,15 @@ class WeatherRepository(
 
 ) {
 
-    suspend fun getWeatherData(): Resource<List<Day>> {
+    suspend fun getWeatherData(location:Location): Resource<List<Day>> {
 
-        val latitude = 40.7128 // Replace with your actual latitude value
-        val longitude = -74.0060 // Replace with your actual longitude value
 
         return try {
 
 
             val result = weatherService.getWeatherData(
-                latitude,
-                longitude,
+                location.latitude,
+                location.longitude,
                 Constants.unitGroup,
                 Constants.elements,
                 Constants.days,
