@@ -8,12 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.repository.WeatherRepository
+import com.example.weatherapp.data.source.local.LocationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
+class HomeViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository,
+    private val locationService: LocationService
+) :
     ViewModel() {
 
     private var _homeState = MutableLiveData<HomeState>()
@@ -27,7 +31,7 @@ class HomeViewModel @Inject constructor(private val weatherRepository: WeatherRe
             _homeState.value = HomeState.Loading
 
             val result = weatherRepository.getWeatherData()
-            Log.e("viewmodel",result.toString())
+            Log.e("viewmodel", result.toString())
             if (result is Resource.Success) {
                 _homeState.value = HomeState.WeatherList(result.data)
             } else if (result is Resource.Error) {
