@@ -3,7 +3,7 @@ package com.example.weatherapp.di
 
 import android.app.Application
 import com.example.weatherapp.data.repository.LocationImpl
-import com.example.weatherapp.data.source.local.LocationService
+import com.example.weatherapp.data.repository.LocationService
 import com.google.android.gms.location.LocationServices
 
 import dagger.Module
@@ -20,6 +20,7 @@ object LocationModule {
     fun provideLocationService(locationImpl: LocationImpl): LocationService {
         return locationImpl
     }
+
 
     @Provides
     @Singleton

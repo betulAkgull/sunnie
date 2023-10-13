@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.model.Location
+import com.example.weatherapp.data.repository.LocationService
 import com.example.weatherapp.data.repository.WeatherRepository
-import com.example.weatherapp.data.source.local.LocationService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,7 +53,6 @@ class HomeViewModel @Inject constructor(
 
         }
     }
-
 
 }
 

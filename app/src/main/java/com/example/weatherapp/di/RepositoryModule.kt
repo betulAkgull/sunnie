@@ -11,9 +11,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+
     @Provides
     @Singleton
     fun providesWeatherRepository(
         weatherService: WeatherService
     ): WeatherRepository = WeatherRepository(weatherService)
+
 }

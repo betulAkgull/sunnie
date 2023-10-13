@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Location
-import com.example.weatherapp.data.source.local.LocationService
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -46,7 +45,7 @@ class LocationImpl @Inject constructor(
         return try {
             val location = locationClient.lastLocation.await()
             if (location != null) {
-                Log.e("lat",location.latitude.toString())
+                Log.e("location", location.toString())
                 Resource.Success(Location(location.latitude, location.longitude))
             } else {
                 Resource.Error(Exception("Location not available"))
@@ -56,4 +55,9 @@ class LocationImpl @Inject constructor(
         }
     }
 
+}
+
+interface LocationService {
+
+    suspend fun getCurrentLocation(): Resource<Location>
 }
