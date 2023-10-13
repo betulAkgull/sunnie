@@ -1,16 +1,15 @@
 package com.example.weatherapp.data.repository
 
-import android.Manifest
 import android.app.Application
-import android.content.Context
-import android.content.pm.PackageManager
-import android.location.LocationManager
+import android.location.Geocoder
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Location
+import com.example.weatherapp.data.utils.LocationUtil
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.type.LatLng
 import kotlinx.coroutines.tasks.await
+import java.util.Locale
 import javax.inject.Inject
 
 class LocationImpl @Inject constructor(
@@ -20,44 +19,34 @@ class LocationImpl @Inject constructor(
 
     override suspend fun getCurrentLocation(): Resource<Location> {
 
-        val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
-            application,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        val hasAccessCoarseLocationPermission = ContextCompat.checkSelfPermission(
-            application,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!hasAccessCoarseLocationPermission || !hasAccessFineLocationPermission) {
-            return Resource.Error(Exception("Location permissions are not granted"))
-        }
-
-        val locationManager =
-            application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-
-        if (!isGpsEnabled) {
+        if (!LocationUtil.isGpsEnabled(application)) {
             return Resource.Error(Exception("GPS is not enabled"))
         }
 
-        return try {
-            val location = locationClient.lastLocation.await()
-            if (location != null) {
-                Log.e("location", location.toString())
-                Resource.Success(Location(location.latitude, location.longitude))
-            } else {
-                Resource.Error(Exception("Location not available"))
+        val location: LatLng
+
+        if (LocationUtil.checkLocationPermission(application)) {
+            location = locationClient.lastLocation.await().let {
+                LatLng.newBuilder()
+                    .setLatitude(it.latitude)
+                    .setLongitude(it.longitude)
+                    .build()
             }
-        } catch (e: Exception) {
-            Resource.Error(e)
+        } else {
+            return Resource.Error(Exception("Location permission is not granted"))
         }
+
+        val city = getCityName(location.latitude, location.longitude)
+        return Resource.Success(Location(location.latitude, location.longitude, city))
     }
 
+    private fun getCityName(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(application, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(lat, lng, 1)
+        return addresses?.getOrNull(0)?.adminArea ?: "Unknown"
+    }
 }
 
 interface LocationService {
-
     suspend fun getCurrentLocation(): Resource<Location>
 }

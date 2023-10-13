@@ -39,16 +39,19 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="18dp">
 
                 <ImageView
                     android:id="@+id/iv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
                     android:contentDescription="@string/imageview"
                     android:src="@drawable/ic_map"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_location"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.6" />
@@ -60,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_location"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_location"
                     app:layout_constraintTop_toTopOf="@+id/iv_location"
                     app:layout_constraintVertical_bias="0.0"
