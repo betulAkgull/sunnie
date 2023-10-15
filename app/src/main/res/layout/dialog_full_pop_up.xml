@@ -1,14 +1,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/bg_pop_up">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="0dp"
         android:layout_height="88dp"
         android:src="@drawable/ic_no_location"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,12 +19,13 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
+        style="@style/textMedium"
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="No Location Found"
+        android:text="@string/tvPopUp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_okay"
@@ -30,13 +34,15 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
 
     <Button
+        style="@style/buttonPopUp"
         android:id="@+id/btn_okay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
-        android:text="Okay"
+        android:layout_marginBottom="20dp"
+        android:text="GO TO SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

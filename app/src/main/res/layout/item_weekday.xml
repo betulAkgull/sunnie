@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/buttonColor">
+    android:background="@android:color/transparent">
 
 
     <TextView
@@ -15,9 +15,11 @@
         android:layout_margin="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Monday" />
 
     <ImageView
+        android:id="@+id/iv_weather"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_raindrop"
