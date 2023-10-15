@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.common.viewBinding
+import com.example.weatherapp.common.visible
 import com.example.weatherapp.databinding.FragmentSignUpBinding
 import com.example.weatherapp.ui.login.AuthState
 import com.example.weatherapp.ui.login.AuthViewModel
@@ -34,10 +35,11 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 val email = etEmail.text.toString()
                 val password = etPassword.text.toString()
 
-                if(email.isNotEmpty() && password.isNotEmpty()) {
+                if (email.isNotEmpty() && password.isNotEmpty()) {
                     viewModel.signUpUser(email, password)
                 } else {
-                    Toast.makeText(requireContext(), "Please fill all fields!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Please fill all fields!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             tvAlreadyUser.setOnClickListener {
@@ -52,7 +54,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
             when (state) {
                 AuthState.Loading -> {
-                    //binding.progressBar.visible()
+                    binding.progressBar.visible()
                 }
 
                 is AuthState.Data -> {

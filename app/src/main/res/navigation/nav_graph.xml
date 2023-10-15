@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.example.weatherapp.ui.splash.SplashFragment"
         android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/splashToSignin"
             app:destination="@id/signInFragment" />
@@ -51,7 +51,13 @@
         android:id="@+id/homeFragment"
         android:name="com.example.weatherapp.ui.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/homeToSplash"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:destination="@id/splashFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.weatherapp.ui.location.LocationFragment"

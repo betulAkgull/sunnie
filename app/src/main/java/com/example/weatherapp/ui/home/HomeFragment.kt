@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
+import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.showFullScreenPopUp
 import com.example.weatherapp.common.viewBinding
+import com.example.weatherapp.common.visible
 import com.example.weatherapp.data.utils.LocationUtil
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.ui.login.AuthViewModel
@@ -71,10 +73,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
             layoutUserInfo.ivLogout.setOnClickListener {
-
-                findNavController().navigate(R.id.splashFragment)
+                viewModelAuth.logout()
+                findNavController().navigate(HomeFragmentDirections.homeToSplash())
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
+
 
             viewModelAuth.currentUser?.let {
                 layoutUserInfo.tvUserEmail.text = viewModelAuth.currentUser?.email.toString()
@@ -100,16 +103,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeState.Loading -> {
-                    // binding.progressBarHome.visible()
+                    binding.toolbar.gone()
+                    binding.progressBar.visible()
                 }
 
                 is HomeState.WeatherList -> {
                     //productsAdapter.submitList(state.products)
-                    // binding.progressBarHome.invisible()
-                    binding.tvDegree.text = state.days[0].temp.toString() + "\u00B0"
+                    binding.progressBar.gone()
+                    binding.toolbar.visible()
+                    binding.tvDegree.text = state.days[0].temp?.toInt().toString() + "\u00B0"
                     binding.tvHumidity.text = state.days[0].humidity.toString()
                     binding.tvWind.text = state.days[0].windspeed.toString()
                     binding.tvLocation.text = state.location.province
+                    binding.navViewHeader.tvLocation.text = state.location.city
+                    binding.navViewHeader.tvTemp.text =
+                        state.days[0].temp?.toInt().toString() + "\u00B0"
                 }
 
                 HomeState.LocationError -> {
@@ -122,7 +130,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
 
                 is HomeState.Error -> {
-                    //binding.progressBarHome.invisible()
+                    binding.toolbar.gone()
+                    binding.progressBar.gone()
                     Toast.makeText(
                         requireContext(),
                         state.throwable.message.orEmpty(),

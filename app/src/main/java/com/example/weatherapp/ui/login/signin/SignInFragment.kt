@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.common.viewBinding
+import com.example.weatherapp.common.visible
 import com.example.weatherapp.databinding.FragmentSignInBinding
 import com.example.weatherapp.ui.login.AuthState
 import com.example.weatherapp.ui.login.AuthViewModel
@@ -53,7 +54,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
             when (state) {
                 AuthState.Loading -> {
-                    //binding.progressBar.visible()
+                    binding.progressBar.visible()
                 }
 
                 is AuthState.Data -> {

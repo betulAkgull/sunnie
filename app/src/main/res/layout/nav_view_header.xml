@@ -60,14 +60,15 @@
         android:id="@+id/imageView6"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
         android:contentDescription="@string/imageview"
         android:src="@drawable/ic_raindrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_high_degree"
-        app:layout_constraintTop_toTopOf="@+id/tv_high_degree" />
+        app:layout_constraintEnd_toStartOf="@+id/tv_temp"
+        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
 
     <TextView
-        android:id="@+id/tv_high_degree"
+        android:id="@+id/tv_temp"
         style="@style/textSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
