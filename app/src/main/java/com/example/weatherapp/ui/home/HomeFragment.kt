@@ -23,6 +23,7 @@ import com.example.weatherapp.data.utils.LocationUtil
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.ui.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -30,6 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     private val viewModel by viewModels<HomeViewModel>()
     private val viewModelAuth by viewModels<AuthViewModel>()
+    private val weekWeatherAdapter by lazy {WeekWeatherAdapter()}
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(
@@ -66,6 +68,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         observeData()
 
         with(binding) {
+
+            rvWeekWeather.adapter = weekWeatherAdapter
 
             val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, toolbar, 0, 0)
             drawerLayout.addDrawerListener(toggle)
@@ -108,10 +112,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
 
                 is HomeState.WeatherList -> {
-                    //productsAdapter.submitList(state.products)
+                    weekWeatherAdapter.submitList(state.days.take(5))
                     binding.progressBar.gone()
                     binding.toolbar.visible()
-                    binding.tvDegree.text = state.days[0].temp?.toInt().toString() + "\u00B0"
+                    binding.tvDegree.text = state.days[0].temp?.roundToInt().toString() + "\u00B0"
                     binding.tvHumidity.text = state.days[0].humidity.toString()
                     binding.tvWind.text = state.days[0].windspeed.toString()
                     binding.tvLocation.text = state.location.province
