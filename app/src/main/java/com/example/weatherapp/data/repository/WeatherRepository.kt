@@ -13,11 +13,7 @@ class WeatherRepository(
 ) {
 
     suspend fun getWeatherData(location:Location): Resource<List<Day>> {
-
-
         return try {
-
-
             val result = weatherService.getWeatherData(
                 location.latitude,
                 location.longitude,
@@ -27,8 +23,6 @@ class WeatherRepository(
                 BuildConfig.API_KEY,
                 Constants.contentType
             ).days
-
-
 
             if (result.isNullOrEmpty()) {
                 Resource.Error(Exception("error"))
@@ -41,6 +35,7 @@ class WeatherRepository(
             Resource.Error(e)
         }
     }
+
 
 
 }

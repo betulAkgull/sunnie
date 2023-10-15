@@ -2,7 +2,6 @@ package com.example.weatherapp.data.repository
 
 import android.app.Application
 import android.location.Geocoder
-import android.util.Log
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.utils.LocationUtil
@@ -37,13 +36,20 @@ class LocationImpl @Inject constructor(
         }
 
         val city = getCityName(location.latitude, location.longitude)
-        return Resource.Success(Location(location.latitude, location.longitude, city))
+        val province = getProvince(location.latitude, location.longitude)
+        return Resource.Success(Location(location.latitude, location.longitude, city, province))
     }
 
     private fun getCityName(lat: Double, lng: Double): String {
         val geocoder = Geocoder(application, Locale.getDefault())
         val addresses = geocoder.getFromLocation(lat, lng, 1)
         return addresses?.getOrNull(0)?.adminArea ?: "Unknown"
+    }
+
+    private fun getProvince(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(application, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(lat, lng, 1)
+        return addresses?.getOrNull(0)?.subAdminArea ?: "Unknown"
     }
 }
 

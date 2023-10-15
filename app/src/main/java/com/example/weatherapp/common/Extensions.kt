@@ -22,28 +22,6 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-
-fun Context.getCityName(location: Location): String {
-    var cityName: String = "null"
-    val geoCoder = Geocoder(this, Locale.getDefault())
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        geoCoder.getFromLocation(
-            location.latitude,
-            location.longitude,
-            3,
-            Geocoder.GeocodeListener {
-                cityName = it[0].locality.toString()
-            })
-    } else {
-        val adress = geoCoder.getFromLocation(location.latitude, location.longitude, 3)
-        cityName = adress!![0].locality.toString()
-    }
-
-
-    return cityName
-}
-
 fun Fragment.showFullScreenPopUp(
     onButtonClickListener: (() -> Unit)? = null,
 ) {

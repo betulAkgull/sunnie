@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.repository.LocationService
 import com.example.weatherapp.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +31,7 @@ class HomeViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     when (val result = weatherRepository.getWeatherData(locationRes.data)) {
-                        is Resource.Success -> HomeState.WeatherList(result.data)
+                        is Resource.Success -> HomeState.WeatherList(result.data, locationRes.data)
                         is Resource.Error -> HomeState.Error(result.throwable)
                     }
                 }
@@ -46,12 +47,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+
 }
 
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class WeatherList(val days: List<Day>) : HomeState
+    data class WeatherList(val days: List<Day>, val location: Location) : HomeState
     data class Error(val throwable: Throwable) : HomeState
     object LocationError : HomeState
 }

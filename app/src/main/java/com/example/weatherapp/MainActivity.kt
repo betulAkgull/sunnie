@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
-    private val viewModel by viewModels<AuthViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,44 +29,11 @@ class MainActivity : AppCompatActivity() {
 
             val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-            NavigationUI.setupWithNavController(navView, navHostFragment.navController)
 
+            val navController = navHostFragment.navController
 
-            val toggle = ActionBarDrawerToggle(this@MainActivity, drawerLayout, toolbar, 0, 0)
-            drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
+           // NavigationUI.setupWithNavController(navView, navHostFragment.navController)
 
-            navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.homeFragment) {
-                    toolbar.visible()
-                } else {
-                    toolbar.gone()
-                }
-            }
-
-            layoutUserInfo.ivLogout.setOnClickListener {
-                viewModel.logout()
-                navHostFragment.findNavController().navigate(R.id.splashFragment)
-                drawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            viewModel.currentUser?.let {
-                layoutUserInfo.tvUserEmail.text = viewModel.currentUser?.email.toString()
-            }
-
-            onBackPressedDispatcher.addCallback(
-                this@MainActivity,
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                            drawerLayout.closeDrawer(GravityCompat.START)
-                        } else if (navHostFragment.navController.previousBackStackEntry == null) {
-                            finish()
-                        } else {
-                            navHostFragment.navController.navigateUp()
-                        }
-                    }
-                })
         }
     }
 
