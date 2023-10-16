@@ -105,10 +105,10 @@
                     android:layout_marginTop="20dp"
                     android:contentDescription="@string/imageview"
                     android:elevation="@dimen/elevation"
-                    app:lottie_loop="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_loop="true" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
@@ -310,16 +310,17 @@
                         app:layout_constraintVertical_bias="0.0"
                         tools:text="06:58" />
 
-                    <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/iv_sunrise"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:layout_marginBottom="10dp"
                         android:contentDescription="@string/imageview"
-                        android:src="@drawable/sunrise"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/tv_sunrise_time"
                         app:layout_constraintStart_toStartOf="@+id/tv_sunrise_time"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_sunrise_time" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_sunrise_time"
+                        app:lottie_loop="true" />
 
 
                     <TextView
@@ -345,16 +346,17 @@
                         app:layout_constraintVertical_bias="0.0"
                         tools:text="18:48" />
 
-                    <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/iv_sunset"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:layout_marginBottom="10dp"
                         android:contentDescription="@string/imageview"
-                        android:src="@drawable/sunset"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/tv_sunset_time"
                         app:layout_constraintStart_toStartOf="@+id/tv_sunset_time"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_sunset_time" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_sunset_time"
+                        app:lottie_loop="true" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

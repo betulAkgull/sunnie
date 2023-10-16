@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.common.getWeatherTypeByDesc
+import com.example.weatherapp.common.isDeviceTimeEarlier
+import com.example.weatherapp.common.toHourMinute
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.databinding.ItemWeekdayBinding
 import java.text.SimpleDateFormat
@@ -33,7 +35,12 @@ class WeekWeatherAdapter() :
 
             val dateTime = day.datetime
             tvDay.text = dayOfTheWeek(dateTime)
-            ivWeather.setAnimation(getWeatherTypeByDesc(day.icon))
+            ivWeather.setAnimation(
+                getWeatherTypeByDesc(
+                    true,
+                    day.sunset?.toHourMinute().isDeviceTimeEarlier(), day.icon
+                )
+            )
             ivWeather.playAnimation()
             tvHighDegree.text = "${day.tempmax?.roundToInt().toString()}°"
             tvLowDegree.text = "${day.tempmin?.roundToInt().toString()}°"

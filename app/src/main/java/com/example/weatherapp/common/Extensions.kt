@@ -5,11 +5,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DialogFullPopUpBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -19,27 +19,43 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-fun ImageView.loadImage(url: String?) {
-    Glide.with(this.context).load(url).into(this)
+
+fun String?.isDeviceTimeEarlier(): String {
+    val inputFormat = SimpleDateFormat("HH:mm")
+    val currentTime = Date()
+
+    if (this != null) {
+        try {
+            val targetTime = inputFormat.parse(this)
+            if (targetTime != null && currentTime.before(targetTime)) {
+                return "day"
+            }
+        } catch (e: Exception) {
+            // Handle parsing errors if the input string is not in HH:mm format
+            // You can return an error message or handle it as needed
+        }
+    }
+
+    return "night"
 }
 
 
-fun getWeatherTypeByDesc(weatherDesc: String?): String {
+fun getWeatherTypeByDesc(isAdapter: Boolean, daytime: String, weatherDesc: String?): String {
     return when (weatherDesc) {
-        "clear-day" -> "clear_day.json"
-        "clear-night" -> "clear_night.json"
+        "clear-day" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_night.json"
+        "clear-night" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_night.json"
         "cloudy" -> "cloudy.json"
-        "partly-cloudy-day" -> "partly_cloudy_day.json"
-        "partly-cloudy-night" -> "partly_cloudy_night.json"
+        "partly-cloudy-day" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_night.json"
+        "partly-cloudy-night" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_night.json"
         "wind" -> "wind.json"
-        "showers-night" -> "showers_night.json"
-        "showers-day" -> "showers_day.json"
+        "showers-night" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_night.json"
+        "showers-day" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_night.json"
         "rain" -> "rain.json"
-        "thunder-showers-night" -> "thunder_showers_night.json"
-        "thunder-showers-day" -> "thunder_showers_day.json"
+        "thunder-showers-night" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_night.json"
+        "thunder-showers-day" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_night.json"
         "thunder-rain" -> "thunder.json"
-        "snow-showers-day" -> "snow_showers_day.json"
-        "snow-showers-night" -> "snow_showers_night.json"
+        "snow-showers-day" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_night.json"
+        "snow-showers-night" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_night.json"
         "snow" -> "snow.json"
         else -> throw IllegalArgumentException("Geçersiz hava durumu tanımı: $weatherDesc")
     }

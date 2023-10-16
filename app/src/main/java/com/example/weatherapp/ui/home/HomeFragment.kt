@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.common.getWeatherTypeByDesc
 import com.example.weatherapp.common.gone
+import com.example.weatherapp.common.isDeviceTimeEarlier
 import com.example.weatherapp.common.showFullScreenPopUp
 import com.example.weatherapp.common.toHourMinute
 import com.example.weatherapp.common.toUVLevelString
@@ -116,29 +117,47 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 is HomeState.WeatherList -> {
                     weekWeatherAdapter.submitList(state.days.take(5))
-                    binding.progressBar.gone()
-                    binding.toolbar.visible()
+                    with(binding) {
+                        progressBar.gone()
+                        toolbar.visible()
+                        ivSunrise.setAnimation("sunrise.json")
+                        ivSunrise.playAnimation()
+                        ivSunset.setAnimation("sunset.json")
+                        ivSunset.playAnimation()
+                        ivWeather.setAnimation(
+                            getWeatherTypeByDesc(
+                                false,
+                                state.days[0].sunset.toString().toHourMinute()
+                                    .isDeviceTimeEarlier(), state.days[0].icon
+                            )
+                        )
+                        ivWeather.playAnimation()
+                        tvSunriseTime.text = state.days[0].sunrise.toString().toHourMinute()
+                        tvSunsetTime.text = state.days[0].sunset.toString().toHourMinute()
+                        tvRainPoss.text =
+                            state.days[0].precipprob?.roundToInt().toString() + "%"
+                        tvUv.text =
+                            "UV Index ${state.days[0].uvindex?.roundToInt()?.toUVLevelString()}"
+                        tvMaxMin.text = "Max: ${
+                            state.days[0].tempmax?.roundToInt().toString()
+                        }°   Min: ${state.days[0].tempmin?.roundToInt().toString()}° "
+                        tvDegree.text = state.days[0].temp?.roundToInt().toString() + "\u00B0"
+                        tvHumidity.text = state.days[0].humidity?.roundToInt().toString() + "%"
+                        tvWind.text = state.days[0].windspeed?.roundToInt().toString() + "km/h"
+                        tvLocation.text = state.location.province
 
-                    // binding.ivWeather.setImageResource(getWeatherTypeByDesc(state.days[0].icon))
-
-                    binding.ivWeather.setAnimation(getWeatherTypeByDesc(state.days[0].icon))
-                    binding.ivWeather.playAnimation()
-                    binding.tvSunriseTime.text = state.days[0].sunrise.toString().toHourMinute()
-                    binding.tvSunsetTime.text = state.days[0].sunset.toString().toHourMinute()
-                    binding.tvRainPoss.text =
-                        state.days[0].precipprob?.roundToInt().toString() + "%"
-                    binding.tvUv.text =
-                        "UV Index ${state.days[0].uvindex?.roundToInt()?.toUVLevelString()}"
-                    binding.tvMaxMin.text = "Max: ${
-                        state.days[0].tempmax?.roundToInt().toString()
-                    }°   Min: ${state.days[0].tempmin?.roundToInt().toString()}° "
-                    binding.tvDegree.text = state.days[0].temp?.roundToInt().toString() + "\u00B0"
-                    binding.tvHumidity.text = state.days[0].humidity?.roundToInt().toString() + "%"
-                    binding.tvWind.text = state.days[0].windspeed?.roundToInt().toString() + "km/h"
-                    binding.tvLocation.text = state.location.province
-                    binding.navViewHeader.tvLocation.text = state.location.city
-                    binding.navViewHeader.tvTemp.text =
-                        state.days[0].temp?.roundToInt().toString() + "\u00B0"
+                        navViewHeader.ivWeather.setAnimation(
+                            getWeatherTypeByDesc(
+                                false,
+                                state.days[0].sunset.toString().toHourMinute()
+                                    .isDeviceTimeEarlier(), state.days[0].icon
+                            )
+                        )
+                        navViewHeader.ivWeather.playAnimation()
+                        navViewHeader.tvLocation.text = state.location.city
+                        navViewHeader.tvTemp.text =
+                            state.days[0].temp?.roundToInt().toString() + "\u00B0"
+                    }
                 }
 
                 HomeState.LocationError -> {
