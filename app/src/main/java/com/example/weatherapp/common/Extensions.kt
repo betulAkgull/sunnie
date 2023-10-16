@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DialogFullPopUpBinding
 
@@ -15,6 +17,32 @@ fun View.visible() {
 
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun ImageView.loadImage(url: String?) {
+    Glide.with(this.context).load(url).into(this)
+}
+
+
+fun getWeatherTypeByDesc(weatherDesc: String?): String {
+    return when (weatherDesc) {
+        "clear-day" -> "clear_day.json"
+        "clear-night" -> "clear_night.json"
+        "cloudy" -> "cloudy.json"
+        "partly-cloudy-day" -> "partly_cloudy_day.json"
+        "partly-cloudy-night" -> "partly_cloudy_night.json"
+        "wind" -> "wind.json"
+        "showers-night" -> "showers_night.json"
+        "showers-day" -> "showers_day.json"
+        "rain" -> "rain.json"
+        "thunder-showers-night" -> "thunder_showers_night.json"
+        "thunder-showers-day" -> "thunder_showers_day.json"
+        "thunder-rain" -> "thunder.json"
+        "snow-showers-day" -> "snow_showers_day.json"
+        "snow-showers-night" -> "snow_showers_night.json"
+        "snow" -> "snow.json"
+        else -> throw IllegalArgumentException("Geçersiz hava durumu tanımı: $weatherDesc")
+    }
 }
 
 fun Int.toUVLevelString(): String {

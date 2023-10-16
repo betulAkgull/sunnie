@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
+import com.example.weatherapp.common.getWeatherTypeByDesc
 import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.showFullScreenPopUp
 import com.example.weatherapp.common.toHourMinute
@@ -117,6 +118,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     weekWeatherAdapter.submitList(state.days.take(5))
                     binding.progressBar.gone()
                     binding.toolbar.visible()
+
+                    // binding.ivWeather.setImageResource(getWeatherTypeByDesc(state.days[0].icon))
+
+                    binding.ivWeather.setAnimation(getWeatherTypeByDesc(state.days[0].icon))
+                    binding.ivWeather.playAnimation()
                     binding.tvSunriseTime.text = state.days[0].sunrise.toString().toHourMinute()
                     binding.tvSunsetTime.text = state.days[0].sunset.toString().toHourMinute()
                     binding.tvRainPoss.text =

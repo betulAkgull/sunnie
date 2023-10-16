@@ -97,14 +97,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
-                <ImageView
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/iv_weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:contentDescription="@string/imageview"
                     android:elevation="@dimen/elevation"
-                    android:src="@drawable/partly_cloudy_day"
+                    app:lottie_loop="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -173,7 +173,7 @@
 
                     <TextView
                         android:id="@+id/tv_rain_poss"
-                        style="@style/textSmall"
+                        style="@style/textVerySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -199,7 +199,7 @@
 
                     <TextView
                         android:id="@+id/tv_humidity"
-                        style="@style/textSmall"
+                        style="@style/textVerySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -227,7 +227,7 @@
 
                     <TextView
                         android:id="@+id/tv_wind"
-                        style="@style/textSmall"
+                        style="@style/textVerySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="1dp"
@@ -244,7 +244,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintlayout_weekdays"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
