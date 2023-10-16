@@ -116,7 +116,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
 
                 is HomeState.WeatherList -> {
-                    weekWeatherAdapter.submitList(state.days.take(5))
+                    weekWeatherAdapter.submitList(state.days.subList(1, 6))
                     with(binding) {
                         progressBar.gone()
                         toolbar.visible()
