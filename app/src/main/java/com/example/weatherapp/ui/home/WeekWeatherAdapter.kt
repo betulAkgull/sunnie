@@ -32,14 +32,9 @@ class WeekWeatherAdapter() :
         fun bind(day: Day) = with(binding) {
 
             val dateTime = day.datetime
-            val dayOfWeekString = dayOfTheWeek(dateTime).getDisplayName(
-                Calendar.DAY_OF_WEEK,
-                Calendar.LONG,
-                Locale.ENGLISH
-            )
+            tvDay.text = dayOfTheWeek(dateTime)
             ivWeather.setAnimation(getWeatherTypeByDesc(day.icon))
             ivWeather.playAnimation()
-            tvDay.text = dayOfWeekString
             tvHighDegree.text = "${day.tempmax?.roundToInt().toString()}°"
             tvLowDegree.text = "${day.tempmin?.roundToInt().toString()}°"
         }
@@ -56,7 +51,7 @@ class WeekWeatherAdapter() :
     }
 }
 
-fun dayOfTheWeek(dateTime: String?): Calendar {
+fun dayOfTheWeek(dateTime: String?): String? {
     val dayDateFormat = SimpleDateFormat(
         "yyyy-MM-dd", Locale.ENGLISH
     )
@@ -65,5 +60,9 @@ fun dayOfTheWeek(dateTime: String?): Calendar {
     if (date != null) {
         calendar.time = date
     }
-    return calendar
+    return calendar.getDisplayName(
+        Calendar.DAY_OF_WEEK,
+        Calendar.LONG,
+        Locale.ENGLISH
+    )
 }
