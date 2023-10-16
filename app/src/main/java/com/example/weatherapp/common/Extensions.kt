@@ -1,18 +1,13 @@
 package com.example.weatherapp.common
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Geocoder
-import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.weatherapp.R
-import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.databinding.DialogFullPopUpBinding
-import java.util.Locale
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -20,6 +15,26 @@ fun View.visible() {
 
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun Int.toUVLevelString(): String {
+    return when (this) {
+        in 0..2 -> "Low"
+        in 3..5 -> "Moderate"
+        in 6..7 -> "High"
+        in 8..10 -> " Very High"
+        else -> "Extreme"
+    }
+}
+
+fun String.toHourMinute(): String {
+    val parts = this.split(":")
+    if (parts.size == 3) {
+        val hour = parts[0]
+        val minute = parts[1]
+        return "$hour:$minute"
+    }
+    return this // Return the original string if it doesn't match the format "HH:MM:SS"
 }
 
 fun Fragment.showFullScreenPopUp(

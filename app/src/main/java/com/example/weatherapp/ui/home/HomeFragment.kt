@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.showFullScreenPopUp
+import com.example.weatherapp.common.toHourMinute
+import com.example.weatherapp.common.toUVLevelString
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
 import com.example.weatherapp.data.utils.LocationUtil
@@ -31,7 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     private val viewModel by viewModels<HomeViewModel>()
     private val viewModelAuth by viewModels<AuthViewModel>()
-    private val weekWeatherAdapter by lazy {WeekWeatherAdapter()}
+    private val weekWeatherAdapter by lazy { WeekWeatherAdapter() }
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(
@@ -115,13 +117,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     weekWeatherAdapter.submitList(state.days.take(5))
                     binding.progressBar.gone()
                     binding.toolbar.visible()
+                    binding.tvSunriseTime.text = state.days[0].sunrise.toString().toHourMinute()
+                    binding.tvSunsetTime.text = state.days[0].sunset.toString().toHourMinute()
+                    binding.tvRainPoss.text =
+                        state.days[0].precipprob?.roundToInt().toString() + "%"
+                    binding.tvUv.text =
+                        "UV Index ${state.days[0].uvindex?.roundToInt()?.toUVLevelString()}"
+                    binding.tvMaxMin.text = "Max: ${
+                        state.days[0].tempmax?.roundToInt().toString()
+                    }°   Min: ${state.days[0].tempmin?.roundToInt().toString()}° "
                     binding.tvDegree.text = state.days[0].temp?.roundToInt().toString() + "\u00B0"
-                    binding.tvHumidity.text = state.days[0].humidity.toString()
-                    binding.tvWind.text = state.days[0].windspeed.toString()
+                    binding.tvHumidity.text = state.days[0].humidity?.roundToInt().toString() + "%"
+                    binding.tvWind.text = state.days[0].windspeed?.roundToInt().toString() + "km/h"
                     binding.tvLocation.text = state.location.province
                     binding.navViewHeader.tvLocation.text = state.location.city
                     binding.navViewHeader.tvTemp.text =
-                        state.days[0].temp?.toInt().toString() + "\u00B0"
+                        state.days[0].temp?.roundToInt().toString() + "\u00B0"
                 }
 
                 HomeState.LocationError -> {
