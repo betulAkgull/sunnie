@@ -87,6 +87,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
 
+            ivAddLocation.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.homeToLocation())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+
             viewModelAuth.currentUser?.let {
                 layoutUserInfo.tvUserEmail.text = viewModelAuth.currentUser?.email.toString()
             }
@@ -112,6 +118,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (state) {
                 HomeState.Loading -> {
                     binding.toolbar.gone()
+                    binding.constraintLayout.gone()
+                    binding.constraintLayout.gone()
+                    binding.constraintlayoutSunriseSunset.gone()
                     binding.progressBar.visible()
                 }
 
@@ -120,6 +129,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     with(binding) {
                         progressBar.gone()
                         toolbar.visible()
+                        binding.constraintLayout.visible()
+                        binding.constraintLayout.visible()
+                        binding.constraintlayoutSunriseSunset.visible()
                         ivSunrise.setAnimation("sunrise.json")
                         ivSunrise.playAnimation()
                         ivSunset.setAnimation("sunset.json")
@@ -171,6 +183,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 is HomeState.Error -> {
                     binding.toolbar.gone()
+                    binding.constraintLayout.gone()
+                    binding.constraintLayout.gone()
+                    binding.constraintlayoutSunriseSunset.gone()
                     binding.progressBar.gone()
                     Toast.makeText(
                         requireContext(),

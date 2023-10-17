@@ -25,6 +25,7 @@ android {
 
         // Set API keys in BuildConfig
         buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
+        buildConfigField "String", "SEARCH_API_KEY", "\"${properties.getProperty("SEARCH_API_KEY")}\""
 
     }
 

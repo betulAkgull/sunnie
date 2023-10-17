@@ -1,9 +1,9 @@
 package com.example.weatherapp.di
 
 import android.content.Context
-import android.provider.SyncStateContract
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.weatherapp.common.Constants
+import com.example.weatherapp.data.source.remote.CitySearchService
 import com.example.weatherapp.data.source.remote.WeatherService
 import dagger.Module
 import dagger.Provides
@@ -25,7 +25,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideChuckerInterceptor(@ApplicationContext context: Context) = ChuckerInterceptor.Builder(context).build()
+    fun provideChuckerInterceptor(@ApplicationContext context: Context) =
+        ChuckerInterceptor.Builder(context).build()
 
     @Provides
     @Singleton
@@ -35,7 +36,6 @@ object NetworkModule {
         connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         writeTimeout(TIMEOUT, TimeUnit.SECONDS)
     }.build()
-
 
     @Provides
     @Singleton
@@ -48,4 +48,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideWeatherService(retrofit: Retrofit) = retrofit.create<WeatherService>()
+
+    @Provides
+    @Singleton
+    fun provideCitySearchService(retrofit: Retrofit) = retrofit.create<CitySearchService>()
+
+
 }

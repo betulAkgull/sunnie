@@ -19,4 +19,5 @@ interface WeatherService {
         @Query("contentType") contentType: String
     ): GetWeatherResponse
 
+
 }
