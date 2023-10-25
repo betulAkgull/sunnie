@@ -2,6 +2,8 @@ package com.example.weatherapp.data.repository
 
 import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.utils.await
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -38,6 +40,18 @@ class AuthRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun signInWithGoogle(credential: AuthCredential): Resource<AuthResult> {
+
+        return try {
+            val result = firebaseAuth.signInWithCredential(credential).await()
+            Resource.Success(result)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(e)
+        }
+
+    }
+
 
     override fun logout() {
         firebaseAuth.signOut()
@@ -46,6 +60,7 @@ class AuthRepoImpl @Inject constructor(
 
 interface UserRepo {
     val currentUser: FirebaseUser?
+    suspend fun signInWithGoogle(credential: AuthCredential): Resource<AuthResult>
     suspend fun signInUser(email: String, password: String): Resource<FirebaseUser>
     suspend fun signUpUser(email: String, password: String): Resource<FirebaseUser>
     fun logout()

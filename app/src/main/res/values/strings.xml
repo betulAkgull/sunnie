@@ -9,6 +9,7 @@
     <string name="tvPassword">password</string>
     <string name="tvOr">or</string>
     <string name="tvSignInGoogle">sign in with Google</string>
+    <string name="tvSignUpGoogle">sign up with Google</string>
     <string name="tvNotRegistered">not yet registered? sign up</string>
     <string name="tvAlreadyUser">already a user? sign in</string>
     <string name="imageview">imageview</string>

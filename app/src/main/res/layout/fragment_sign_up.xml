@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
         android:drawableLeft="@drawable/ic_google"
-        android:text="@string/tvSignInGoogle"
+        android:text="@string/tvSignUpGoogle"
         app:layout_constraintBottom_toTopOf="@+id/tv_or"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/et_email"
