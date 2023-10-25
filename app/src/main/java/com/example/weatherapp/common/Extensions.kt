@@ -42,19 +42,19 @@ fun String?.isDeviceTimeEarlier(): String {
 
 fun getWeatherTypeByDesc(isAdapter: Boolean, daytime: String, weatherDesc: String?): String {
     return when (weatherDesc) {
-        "clear-day" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_night.json"
+        "clear-day" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_day.json"
         "clear-night" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_night.json"
         "cloudy" -> "cloudy.json"
-        "partly-cloudy-day" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_night.json"
+        "partly-cloudy-day" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_day.json"
         "partly-cloudy-night" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_night.json"
         "wind" -> "wind.json"
         "showers-night" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_night.json"
-        "showers-day" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_night.json"
+        "showers-day" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_day.json"
         "rain" -> "rain.json"
         "thunder-showers-night" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_night.json"
-        "thunder-showers-day" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_night.json"
+        "thunder-showers-day" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_day.json"
         "thunder-rain" -> "thunder.json"
-        "snow-showers-day" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_night.json"
+        "snow-showers-day" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_day.json"
         "snow-showers-night" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_night.json"
         "snow" -> "snow.json"
         else -> throw IllegalArgumentException("Geçersiz hava durumu tanımı: $weatherDesc")
