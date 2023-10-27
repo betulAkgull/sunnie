@@ -5,15 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
+import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.model.SearchItem
 import com.example.weatherapp.data.repository.CitySearchRepository
+import com.example.weatherapp.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val citySearchRepository: CitySearchRepository
+    private val citySearchRepository: CitySearchRepository,
+    private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
     private var _searchState = MutableLiveData<SearchState>()
@@ -35,6 +38,12 @@ class SearchViewModel @Inject constructor(
             }
 
 
+        }
+    }
+
+    fun addToSavedLocations(location: Location) {
+        viewModelScope.launch {
+            weatherRepository.addToSavedLocations(location)
         }
     }
 

@@ -3,12 +3,16 @@ package com.example.weatherapp.data.repository
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.common.Constants
 import com.example.weatherapp.common.Resource
+import com.example.weatherapp.data.mapper.mapToSavedLocationEntity
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.model.Location
+import com.example.weatherapp.data.model.SavedLocationsEntity
+import com.example.weatherapp.data.source.local.SavedLocationsDao
 import com.example.weatherapp.data.source.remote.WeatherService
 
 class WeatherRepository(
-    private val weatherService: WeatherService
+    private val weatherService: WeatherService,
+    private val savedLocationsDao: SavedLocationsDao
 
 ) {
 
@@ -31,6 +35,27 @@ class WeatherRepository(
             }
 
 
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
+    suspend fun addToSavedLocations(location: Location) {
+        savedLocationsDao.addToSavedLocations(location.mapToSavedLocationEntity())
+    }
+
+    suspend fun removeFromSavedLocations(location: Location) {
+        savedLocationsDao.removeFromSavedLocations(location.mapToSavedLocationEntity())
+    }
+
+    suspend fun getSavedLocations(): Resource<List<SavedLocationsEntity>> {
+        return try {
+            val result = savedLocationsDao.getSavedLocations()
+            if (result.isEmpty()) {
+                Resource.Error(Exception("There are no saved locations"))
+            } else {
+                Resource.Success(result)
+            }
         } catch (e: Exception) {
             Resource.Error(e)
         }

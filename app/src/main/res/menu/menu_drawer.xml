@@ -9,10 +9,9 @@
 
             <item
                 android:id="@+id/homeFragment"
-                android:title="Istanbul"
                 android:icon="@drawable/clear_day"
-                android:tooltipText="13"
-                />
+                android:title="Istanbul"
+                android:tooltipText="13" />
 
             <item android:title="Denizli" />
 

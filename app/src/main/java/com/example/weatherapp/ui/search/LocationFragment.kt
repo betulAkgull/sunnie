@@ -11,6 +11,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
+import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.databinding.FragmentLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -78,8 +79,8 @@ class LocationFragment : Fragment(R.layout.fragment_location),
 
     }
 
-    override fun onItemClick(lat: String, long: String, city: String) {
-        //add to my locations
+    override fun onItemClick(lat: String, long: String, city: String, province: String) {
+        viewModel.addToSavedLocations(Location(lat.toDouble(), long.toDouble(), city, province))
         Toast.makeText(
             requireContext(),
             "lat: ${lat.toDouble()}, long: ${long.toDouble()}, city: ${city}",

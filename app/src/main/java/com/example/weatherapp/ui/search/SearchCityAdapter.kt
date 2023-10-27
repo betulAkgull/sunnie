@@ -34,7 +34,8 @@ class SearchCityAdapter(
                 searchCityListener.onItemClick(
                     searchItem.lat!!,
                     searchItem.lon!!,
-                    searchItem.displayPlace!!
+                    searchItem.displayPlace!!,
+                    searchItem.displayAddress!!
                 )
             }
 
@@ -55,7 +56,7 @@ class SearchCityAdapter(
     }
 
     interface SearchCityListener {
-        fun onItemClick(lat: String, long: String, city: String)
+        fun onItemClick(lat: String, long: String, city: String, province: String)
     }
 }
 

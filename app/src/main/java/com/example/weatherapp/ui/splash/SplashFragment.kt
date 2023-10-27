@@ -25,6 +25,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }
 
         with(binding) {
+
             btnSignin.setOnClickListener {
                 findNavController().navigate(R.id.splashToSignin)
             }

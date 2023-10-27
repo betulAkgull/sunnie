@@ -60,6 +60,9 @@
         <action
             android:id="@+id/homeToLocation"
             app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/homeToSavedLocations"
+            app:destination="@id/savedLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"

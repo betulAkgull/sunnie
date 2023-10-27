@@ -92,6 +92,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
 
+            btnManageLocations.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.homeToSavedLocations())
+            }
+
 
             viewModelAuth.currentUser?.let {
                 layoutUserInfo.tvUserEmail.text = viewModelAuth.currentUser?.email.toString()
