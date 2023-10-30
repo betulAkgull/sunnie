@@ -87,6 +87,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getSavedLocationData(location: Location) {
+        viewModelScope.launch {
+            _homeState.value = HomeState.Loading
+
+            val result = weatherRepository.getWeatherData(location)
+            when (result) {
+                is Resource.Success -> {
+                    _homeState.value = HomeState.WeatherList(
+                        today = result.data.first(),
+                        days = result.data.subList(1, 6),
+                        location = location
+                    )
+                }
+
+                is Resource.Error -> HomeState.Error(result.throwable)
+            }
+        }
+    }
+
     fun logout() {
         viewModelScope.launch {
             repo.logout()

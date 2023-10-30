@@ -23,13 +23,15 @@ import com.example.weatherapp.common.toHourMinute
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
 import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.utils.LocationUtil
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home),
+    DrawerSavedLocationsAdapter.DrawerSavedLocationsListener {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
@@ -37,7 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val weekWeatherAdapter by lazy { WeekWeatherAdapter() }
 
-    private val drawerSavedLocationsAdapter by lazy { DrawerSavedLocationsAdapter() }
+    private val drawerSavedLocationsAdapter by lazy { DrawerSavedLocationsAdapter(this) }
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(
@@ -157,6 +159,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onItemClick(item: Pair<List<Day>, Location>) {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        viewModel.getSavedLocationData(item.second)
+    }
+
 
     private fun setTodayData(day: Day) = with(binding) {
         ivWeather.setAnim(day.icon)
@@ -183,4 +190,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             else -> "Extreme"
         }
     }
+
+
 }
