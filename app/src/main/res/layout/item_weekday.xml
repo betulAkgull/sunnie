@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:padding="5dp">
 
 
     <TextView
@@ -27,6 +27,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_high_degree"
         app:layout_constraintStart_toEndOf="@id/tv_day"
         app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
         app:lottie_loop="true" />
 
     <TextView

@@ -10,7 +10,7 @@
     <dimen name="editTextWidth">120dp</dimen>
     <dimen name="editTextHeight">53dp</dimen>
     <dimen name="btnWidthLarge">120dp</dimen>
-    <dimen name="btnHeightLarge">53dp</dimen>
+    <dimen name="btnHeightLarge">60dp</dimen>
     <dimen name="margin">45dp</dimen>
     <dimen name="elevation">20dp</dimen>
 </resources>

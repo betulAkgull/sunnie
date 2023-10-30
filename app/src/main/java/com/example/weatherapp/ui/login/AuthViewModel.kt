@@ -67,14 +67,6 @@ class AuthViewModel @Inject constructor(private val repo: UserRepo) : ViewModel(
             }
         }
     }
-
-
-    fun logout() {
-        viewModelScope.launch {
-            repo.logout()
-        }
-    }
-
 }
 
 sealed interface AuthState {

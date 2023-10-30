@@ -4,9 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,17 +13,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
-import com.example.weatherapp.common.getWeatherTypeByDesc
 import com.example.weatherapp.common.gone
-import com.example.weatherapp.common.isDeviceTimeEarlier
+import com.example.weatherapp.common.setAnim
+import com.example.weatherapp.common.setViewsGone
+import com.example.weatherapp.common.setViewsVisible
 import com.example.weatherapp.common.showFullScreenPopUp
+import com.example.weatherapp.common.showToast
 import com.example.weatherapp.common.toHourMinute
-import com.example.weatherapp.common.toUVLevelString
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
+import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.utils.LocationUtil
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.ui.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
@@ -33,9 +32,12 @@ import kotlin.math.roundToInt
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
+
     private val viewModel by viewModels<HomeViewModel>()
-    private val viewModelAuth by viewModels<AuthViewModel>()
+
     private val weekWeatherAdapter by lazy { WeekWeatherAdapter() }
+
+    private val drawerSavedLocationsAdapter by lazy { DrawerSavedLocationsAdapter() }
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(
@@ -54,20 +56,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-    override fun onPause() {
-        super.onPause()
-        Log.i("pause", "onPause")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i("resume", "onResume")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getWeatherData()
+        viewModel.getSavedLocationsData()
 
         observeData()
 
@@ -75,17 +68,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             rvWeekWeather.adapter = weekWeatherAdapter
 
+            rvDrawerLocations.adapter = drawerSavedLocationsAdapter
+
             val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, toolbar, 0, 0)
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
-
             layoutUserInfo.ivLogout.setOnClickListener {
-                viewModelAuth.logout()
+                viewModel.logout()
                 findNavController().navigate(HomeFragmentDirections.homeToSplash())
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
 
             ivAddLocation.setOnClickListener {
                 findNavController().navigate(HomeFragmentDirections.homeToLocation())
@@ -96,9 +89,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(HomeFragmentDirections.homeToSavedLocations())
             }
 
-
-            viewModelAuth.currentUser?.let {
-                layoutUserInfo.tvUserEmail.text = viewModelAuth.currentUser?.email.toString()
+            viewModel.currentUser?.let {
+                layoutUserInfo.tvUserEmail.text = it.email.toString()
             }
 
 //            findNavController().setOnBackPressedDispatcher().addCallback(
@@ -117,63 +109,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun observeData() {
+    private fun observeData() = with(binding) {
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeState.Loading -> {
-                    binding.toolbar.gone()
-                    binding.constraintLayout.gone()
-                    binding.constraintLayout.gone()
-                    binding.constraintlayoutSunriseSunset.gone()
-                    binding.progressBar.visible()
+                    setViewsGone(toolbar, constraintLayout, constraintlayoutSunriseSunset)
+                    progressBar.visible()
+                }
+
+                is HomeState.DrawerWeatherList -> {
+                    progressBar.gone()
+                    setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
+                    drawerSavedLocationsAdapter.submitList(state.weatherList.subList(0, 5))
                 }
 
                 is HomeState.WeatherList -> {
-                    weekWeatherAdapter.submitList(state.days.subList(1, 6))
-                    with(binding) {
-                        progressBar.gone()
-                        toolbar.visible()
-                        binding.constraintLayout.visible()
-                        binding.constraintLayout.visible()
-                        binding.constraintlayoutSunriseSunset.visible()
-                        ivSunrise.setAnimation("sunrise.json")
-                        ivSunrise.playAnimation()
-                        ivSunset.setAnimation("sunset.json")
-                        ivSunset.playAnimation()
-                        ivWeather.setAnimation(
-                            getWeatherTypeByDesc(
-                                false,
-                                state.days[0].sunset.toString().toHourMinute()
-                                    .isDeviceTimeEarlier(), state.days[0].icon
-                            )
-                        )
-                        ivWeather.playAnimation()
-                        tvSunriseTime.text = state.days[0].sunrise.toString().toHourMinute()
-                        tvSunsetTime.text = state.days[0].sunset.toString().toHourMinute()
-                        tvRainPoss.text =
-                            state.days[0].precipprob?.roundToInt().toString() + "%"
-                        tvUv.text =
-                            "UV Index ${state.days[0].uvindex?.roundToInt()?.toUVLevelString()}"
-                        tvMaxMin.text = "Max: ${
-                            state.days[0].tempmax?.roundToInt().toString()
-                        }°   Min: ${state.days[0].tempmin?.roundToInt().toString()}° "
-                        tvDegree.text = state.days[0].temp?.roundToInt().toString() + "\u00B0"
-                        tvHumidity.text = state.days[0].humidity?.roundToInt().toString() + "%"
-                        tvWind.text = state.days[0].windspeed?.roundToInt().toString() + "km/h"
-                        tvLocation.text = state.location.province
+                    weekWeatherAdapter.submitList(state.days)
+                    progressBar.gone()
+                    setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
 
-                        navViewHeader.ivWeather.setAnimation(
-                            getWeatherTypeByDesc(
-                                false,
-                                state.days[0].sunset.toString().toHourMinute()
-                                    .isDeviceTimeEarlier(), state.days[0].icon
-                            )
-                        )
-                        navViewHeader.ivWeather.playAnimation()
-                        navViewHeader.tvLocation.text = state.location.city
-                        navViewHeader.tvTemp.text =
-                            state.days[0].temp?.roundToInt().toString() + "\u00B0"
-                    }
+                    toolbar.title = state.location.province
+
+                    navViewHeader.tvLocation.text = state.location.city
+
+                    setTodayData(state.today)
                 }
 
                 HomeState.LocationError -> {
@@ -186,19 +145,42 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
 
                 is HomeState.Error -> {
-                    binding.toolbar.gone()
-                    binding.constraintLayout.gone()
-                    binding.constraintLayout.gone()
-                    binding.constraintlayoutSunriseSunset.gone()
-                    binding.progressBar.gone()
-                    Toast.makeText(
-                        requireContext(),
-                        state.throwable.message.orEmpty(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    setViewsGone(
+                        toolbar,
+                        constraintLayout,
+                        constraintlayoutSunriseSunset,
+                        progressBar
+                    )
+                    showToast(state.throwable.message.orEmpty())
                 }
             }
         }
     }
 
+
+    private fun setTodayData(day: Day) = with(binding) {
+        ivWeather.setAnim(day.icon)
+        tvSunriseTime.text = day.sunrise.toString().toHourMinute()
+        tvSunsetTime.text = day.sunset.toString().toHourMinute()
+        tvRainPoss.text = day.precipprob?.roundToInt().toString() + "%"
+        tvUv.text = "UV Index ${day.uvindex?.roundToInt()?.toUVLevelString()}"
+        tvMaxMin.text = "Max: ${day.tempmax?.roundToInt().toString()}° Min: ${
+            day.tempmin?.roundToInt().toString()
+        }° "
+        tvDegree.text = day.temp?.roundToInt().toString() + "\u00B0"
+        tvHumidity.text = day.humidity?.roundToInt().toString() + "%"
+        tvWind.text = day.windspeed?.roundToInt().toString() + "km/h"
+        navViewHeader.ivWeather.setAnim(day.icon)
+        navViewHeader.tvTemp.text = day.temp?.roundToInt().toString() + "\u00B0"
+    }
+
+    private fun Int.toUVLevelString(): String {
+        return when (this) {
+            in 0..2 -> "Low"
+            in 3..5 -> "Moderate"
+            in 6..7 -> "High"
+            in 8..10 -> " Very High"
+            else -> "Extreme"
+        }
+    }
 }

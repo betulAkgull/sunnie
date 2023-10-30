@@ -8,7 +8,9 @@ import com.example.weatherapp.common.Resource
 import com.example.weatherapp.data.model.Day
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.repository.LocationService
+import com.example.weatherapp.data.repository.UserRepo
 import com.example.weatherapp.data.repository.WeatherRepository
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,12 +18,16 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository,
+    private val repo: UserRepo,
     private val locationService: LocationService
 ) : ViewModel() {
 
     private var _homeState = MutableLiveData<HomeState>()
     val homeState: LiveData<HomeState>
         get() = _homeState
+
+    val currentUser: FirebaseUser?
+        get() = repo.currentUser
 
     fun getWeatherData() {
         viewModelScope.launch {
@@ -31,7 +37,12 @@ class HomeViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     when (val result = weatherRepository.getWeatherData(locationRes.data)) {
-                        is Resource.Success -> HomeState.WeatherList(result.data, locationRes.data)
+                        is Resource.Success -> HomeState.WeatherList(
+                            today = result.data.first(),
+                            days = result.data.subList(1, 6),
+                            location = locationRes.data
+                        )
+
                         is Resource.Error -> HomeState.Error(result.throwable)
                     }
                 }
@@ -47,13 +58,47 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getSavedLocationsData() {
+        viewModelScope.launch {
+            _homeState.value = HomeState.Loading
 
+            _homeState.value = when (val savedLocations = weatherRepository.getSavedLocations()) {
+                is Resource.Success -> {
+                    val tempList = mutableListOf<Pair<List<Day>, Location>>()
+
+                    savedLocations.data.map { location ->
+                        when (val result = weatherRepository.getWeatherData(location)) {
+                            is Resource.Success -> tempList.add(Pair(result.data, location))
+                            is Resource.Error -> {}
+                        }
+                    }
+
+                    HomeState.DrawerWeatherList(tempList)
+                }
+
+                is Resource.Error -> {
+                    if (savedLocations.throwable.message == "Saved locations not found") {
+                        HomeState.LocationError
+                    } else {
+                        HomeState.Error(savedLocations.throwable)
+                    }
+                }
+            }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            repo.logout()
+        }
+    }
 }
 
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class WeatherList(val days: List<Day>, val location: Location) : HomeState
+    data class WeatherList(val today: Day, val days: List<Day>, val location: Location) : HomeState
+    data class DrawerWeatherList(val weatherList: List<Pair<List<Day>, Location>>) : HomeState
     data class Error(val throwable: Throwable) : HomeState
     object LocationError : HomeState
 }

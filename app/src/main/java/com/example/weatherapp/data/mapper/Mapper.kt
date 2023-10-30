@@ -11,3 +11,12 @@ fun Location.mapToSavedLocationEntity(): SavedLocationsEntity {
         province = province,
     )
 }
+
+fun SavedLocationsEntity.mapToLocation(): Location {
+    return Location(
+        latitude = latitude,
+        longitude = longitude,
+        city = city,
+        province = province,
+    )
+}

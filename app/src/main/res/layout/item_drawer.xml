@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="30dp"
+    android:padding="10dp">
 
-
-    <TextView
-        android:id="@+id/tv_day"
-        style="@style/textSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Monday" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_raindrop"
-        app:layout_constraintBottom_toBottomOf="@id/tv_day"
-        app:layout_constraintEnd_toStartOf="@+id/tv_high_degree"
-        app:layout_constraintStart_toEndOf="@id/tv_day"
-        app:layout_constraintTop_toTopOf="@id/tv_day" />
+        android:id="@+id/iv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/imageview"
+        android:src="@drawable/ic_map"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_location"
+        app:layout_constraintEnd_toStartOf="@+id/tv_location"
+        app:layout_constraintTop_toTopOf="@+id/tv_location"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_low_degree"
+        android:id="@+id/tv_location"
         style="@style/textSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/istanbul"
+        app:layout_constraintStart_toEndOf="@id/iv_location"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/iv_weather"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/imageview"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_temp"
+        app:layout_constraintTop_toTopOf="@+id/tv_temp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/tv_temp"
+        style="@style/textSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="@string/_13_u00b0"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_location"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="10\u00B0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_location" />
 
-    <TextView
-        android:id="@+id/tv_high_degree"
-        style="@style/textSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_low_degree"
-        android:text="13\u00B0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

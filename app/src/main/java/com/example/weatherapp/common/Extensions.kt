@@ -1,11 +1,14 @@
 package com.example.weatherapp.common
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DialogFullPopUpBinding
 import java.text.SimpleDateFormat
@@ -15,10 +18,21 @@ fun View.visible() {
     visibility = View.VISIBLE
 }
 
+fun setViewsVisible(vararg views: View) {
+    views.forEach { it.visible() }
+}
+
 fun View.gone() {
     visibility = View.GONE
 }
 
+fun setViewsGone(vararg views: View) {
+    views.forEach { it.gone() }
+}
+
+fun Fragment.showToast(msg: String) {
+    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+}
 
 fun String?.isDeviceTimeEarlier(): String {
     val inputFormat = SimpleDateFormat("HH:mm")
@@ -39,36 +53,8 @@ fun String?.isDeviceTimeEarlier(): String {
     return "night"
 }
 
-
-fun getWeatherTypeByDesc(isAdapter: Boolean, daytime: String, weatherDesc: String?): String {
-    return when (weatherDesc) {
-        "clear-day" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_day.json"
-        "clear-night" -> if (isAdapter || daytime == "day") "clear_day.json" else "clear_night.json"
-        "cloudy" -> "cloudy.json"
-        "partly-cloudy-day" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_day.json"
-        "partly-cloudy-night" -> if (isAdapter || daytime == "day") "partly_cloudy_day.json" else "partly_cloudy_night.json"
-        "wind" -> "wind.json"
-        "showers-night" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_night.json"
-        "showers-day" -> if (isAdapter || daytime == "day") "showers_day.json" else "showers_day.json"
-        "rain" -> "rain.json"
-        "thunder-showers-night" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_night.json"
-        "thunder-showers-day" -> if (isAdapter || daytime == "day") "thunder_showers_day.json" else "thunder_showers_day.json"
-        "thunder-rain" -> "thunder.json"
-        "snow-showers-day" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_day.json"
-        "snow-showers-night" -> if (isAdapter || daytime == "day") "snow_showers_day.json" else "snow_showers_night.json"
-        "snow" -> "snow.json"
-        else -> throw IllegalArgumentException("Geçersiz hava durumu tanımı: $weatherDesc")
-    }
-}
-
-fun Int.toUVLevelString(): String {
-    return when (this) {
-        in 0..2 -> "Low"
-        in 3..5 -> "Moderate"
-        in 6..7 -> "High"
-        in 8..10 -> " Very High"
-        else -> "Extreme"
-    }
+fun LottieAnimationView.setAnim(weatherDesc: String?, daytime: String = "day") {
+    this.setAnimation(weatherDesc?.replace("-", "_").plus(".json"))
 }
 
 fun String.toHourMinute(): String {

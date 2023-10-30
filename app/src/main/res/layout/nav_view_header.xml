@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_half_curved_layout"
-    android:padding="50dp">
+    android:padding="30dp">
 
 
     <ImageView
@@ -62,10 +62,10 @@
         android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="@string/imageview"
-        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+        app:layout_constraintTop_toTopOf="@+id/tv_temp"
+        app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/tv_temp"
