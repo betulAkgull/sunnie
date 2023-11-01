@@ -1,7 +1,6 @@
 package com.example.weatherapp.common
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
@@ -13,6 +12,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DialogFullPopUpBinding
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -65,6 +65,11 @@ fun String.toHourMinute(): String {
         return "$hour:$minute"
     }
     return this // Return the original string if it doesn't match the format "HH:MM:SS"
+}
+
+fun String.toTitleCase(): String {
+    val words = this.split("-").map { it.capitalize() }
+    return words.joinToString(" ")
 }
 
 fun Fragment.showFullScreenPopUp(

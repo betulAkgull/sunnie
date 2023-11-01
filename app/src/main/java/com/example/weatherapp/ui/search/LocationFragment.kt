@@ -83,7 +83,7 @@ class LocationFragment : Fragment(R.layout.fragment_location),
         viewModel.addToSavedLocations(Location(lat.toDouble(), long.toDouble(), city, province))
         Toast.makeText(
             requireContext(),
-            "lat: ${lat.toDouble()}, long: ${long.toDouble()}, city: ${city}",
+            "Location Saved !",
             Toast.LENGTH_SHORT
         ).show()
 

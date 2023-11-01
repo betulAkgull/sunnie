@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Resource
-import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.repository.LocationService
 import com.example.weatherapp.data.repository.UserRepo
@@ -64,7 +64,7 @@ class HomeViewModel @Inject constructor(
 
             _homeState.value = when (val savedLocations = weatherRepository.getSavedLocations()) {
                 is Resource.Success -> {
-                    val tempList = mutableListOf<Pair<List<Day>, Location>>()
+                    val tempList = mutableListOf<Pair<List<DayUI>, Location>>()
 
                     savedLocations.data.map { location ->
                         when (val result = weatherRepository.getWeatherData(location)) {
@@ -116,8 +116,10 @@ class HomeViewModel @Inject constructor(
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class WeatherList(val today: Day, val days: List<Day>, val location: Location) : HomeState
-    data class DrawerWeatherList(val weatherList: List<Pair<List<Day>, Location>>) : HomeState
+    data class WeatherList(val today: DayUI, val days: List<DayUI>, val location: Location) :
+        HomeState
+
+    data class DrawerWeatherList(val weatherList: List<Pair<List<DayUI>, Location>>) : HomeState
     data class Error(val throwable: Throwable) : HomeState
     object LocationError : HomeState
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.common.setAnim
-import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.databinding.ItemDrawerBinding
 import kotlin.math.roundToInt
@@ -14,7 +14,7 @@ import kotlin.math.roundToInt
 class DrawerSavedLocationsAdapter(
     private val drawerSavedLocationsListener: DrawerSavedLocationsAdapter.DrawerSavedLocationsListener
 ) :
-    ListAdapter<Pair<List<Day>, Location>, DrawerSavedLocationsAdapter.DrawerSavedLocationsViewHolder>(
+    ListAdapter<Pair<List<DayUI>, Location>, DrawerSavedLocationsAdapter.DrawerSavedLocationsViewHolder>(
         SavedLocationsDiffCallBack()
     ) {
 
@@ -35,10 +35,10 @@ class DrawerSavedLocationsAdapter(
         private val binding: ItemDrawerBinding,
         private val drawerSavedLocationsListener: DrawerSavedLocationsListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Pair<List<Day>, Location>) {
+        fun bind(item: Pair<List<DayUI>, Location>) {
             binding.tvLocation.text = item.second.city
             item.first.forEach {
-                binding.tvTemp.text = "${it.temp?.roundToInt().toString()}°"
+                binding.tvTemp.text = "${it.temp.roundToInt()}°"
                 binding.ivWeather.setAnim(it.icon)
             }
 
@@ -48,23 +48,23 @@ class DrawerSavedLocationsAdapter(
         }
     }
 
-    class SavedLocationsDiffCallBack : DiffUtil.ItemCallback<Pair<List<Day>, Location>>() {
+    class SavedLocationsDiffCallBack : DiffUtil.ItemCallback<Pair<List<DayUI>, Location>>() {
         override fun areItemsTheSame(
-            oldItem: Pair<List<Day>, Location>,
-            newItem: Pair<List<Day>, Location>
+            oldItem: Pair<List<DayUI>, Location>,
+            newItem: Pair<List<DayUI>, Location>
         ): Boolean {
             return oldItem.second == newItem.second
         }
 
         override fun areContentsTheSame(
-            oldItem: Pair<List<Day>, Location>,
-            newItem: Pair<List<Day>, Location>
+            oldItem: Pair<List<DayUI>, Location>,
+            newItem: Pair<List<DayUI>, Location>
         ): Boolean {
             return oldItem == newItem
         }
     }
 
     interface DrawerSavedLocationsListener {
-        fun onItemClick(item: Pair<List<Day>, Location>)
+        fun onItemClick(item: Pair<List<DayUI>, Location>)
     }
 }

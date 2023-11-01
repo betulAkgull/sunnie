@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
-import com.example.weatherapp.common.gone
 import com.example.weatherapp.common.setAnim
 import com.example.weatherapp.common.setViewsGone
 import com.example.weatherapp.common.setViewsVisible
@@ -21,8 +20,7 @@ import com.example.weatherapp.common.showFullScreenPopUp
 import com.example.weatherapp.common.showToast
 import com.example.weatherapp.common.toHourMinute
 import com.example.weatherapp.common.viewBinding
-import com.example.weatherapp.common.visible
-import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.utils.LocationUtil
 import com.example.weatherapp.databinding.FragmentHomeBinding
@@ -116,21 +114,21 @@ class HomeFragment : Fragment(R.layout.fragment_home),
             when (state) {
                 HomeState.Loading -> {
                     setViewsGone(toolbar, constraintLayout, constraintlayoutSunriseSunset)
-                    progressBar.visible()
+                    setViewsVisible(progressBar, progressBarDrawer)
                 }
 
                 is HomeState.DrawerWeatherList -> {
-                    progressBar.gone()
+                    drawerSavedLocationsAdapter.submitList(state.weatherList)
+                    setViewsGone(progressBar, progressBarDrawer)
                     setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
-                    drawerSavedLocationsAdapter.submitList(state.weatherList.subList(0, 5))
                 }
 
                 is HomeState.WeatherList -> {
                     weekWeatherAdapter.submitList(state.days)
-                    progressBar.gone()
+                    setViewsGone(progressBar, progressBarDrawer)
                     setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
 
-                    toolbar.title = state.location.province
+                    toolbar.title = state.location.city
 
                     navViewHeader.tvLocation.text = state.location.city
 
@@ -151,7 +149,8 @@ class HomeFragment : Fragment(R.layout.fragment_home),
                         toolbar,
                         constraintLayout,
                         constraintlayoutSunriseSunset,
-                        progressBar
+                        progressBar,
+                        progressBarDrawer
                     )
                     showToast(state.throwable.message.orEmpty())
                 }
@@ -159,26 +158,26 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         }
     }
 
-    override fun onItemClick(item: Pair<List<Day>, Location>) {
+    override fun onItemClick(item: Pair<List<DayUI>, Location>) {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         viewModel.getSavedLocationData(item.second)
     }
 
 
-    private fun setTodayData(day: Day) = with(binding) {
+    private fun setTodayData(day: DayUI) = with(binding) {
         ivWeather.setAnim(day.icon)
-        tvSunriseTime.text = day.sunrise.toString().toHourMinute()
-        tvSunsetTime.text = day.sunset.toString().toHourMinute()
-        tvRainPoss.text = day.precipprob?.roundToInt().toString() + "%"
-        tvUv.text = "UV Index ${day.uvindex?.roundToInt()?.toUVLevelString()}"
-        tvMaxMin.text = "Max: ${day.tempmax?.roundToInt().toString()}° Min: ${
-            day.tempmin?.roundToInt().toString()
+        tvSunriseTime.text = day.sunrise.toHourMinute()
+        tvSunsetTime.text = day.sunset.toHourMinute()
+        tvRainPoss.text = day.precipprob.roundToInt().toString() + "%"
+        tvUv.text = "UV Index ${day.uvindex.roundToInt()?.toUVLevelString()}"
+        tvMaxMin.text = "Max: ${day.tempmax.roundToInt().toString()}° Min: ${
+            day.tempmin.roundToInt().toString()
         }° "
-        tvDegree.text = day.temp?.roundToInt().toString() + "\u00B0"
-        tvHumidity.text = day.humidity?.roundToInt().toString() + "%"
-        tvWind.text = day.windspeed?.roundToInt().toString() + "km/h"
+        tvDegree.text = day.temp.roundToInt().toString() + "\u00B0"
+        tvHumidity.text = day.humidity.roundToInt().toString() + "%"
+        tvWind.text = day.windspeed.roundToInt().toString() + "km/h"
         navViewHeader.ivWeather.setAnim(day.icon)
-        navViewHeader.tvTemp.text = day.temp?.roundToInt().toString() + "\u00B0"
+        navViewHeader.tvTemp.text = day.temp.roundToInt().toString() + "\u00B0"
     }
 
     private fun Int.toUVLevelString(): String {

@@ -3,9 +3,10 @@ package com.example.weatherapp.data.repository
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.common.Constants
 import com.example.weatherapp.common.Resource
+import com.example.weatherapp.data.mapper.mapToDayUI
 import com.example.weatherapp.data.mapper.mapToLocation
 import com.example.weatherapp.data.mapper.mapToSavedLocationEntity
-import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.data.source.local.SavedLocationsDao
 import com.example.weatherapp.data.source.remote.WeatherService
@@ -16,7 +17,7 @@ class WeatherRepository(
 
 ) {
 
-    suspend fun getWeatherData(location: Location): Resource<List<Day>> {
+    suspend fun getWeatherData(location: Location): Resource<List<DayUI>> {
         return try {
             val result = weatherService.getWeatherData(
                 location.latitude,
@@ -26,14 +27,15 @@ class WeatherRepository(
                 Constants.days,
                 BuildConfig.API_KEY,
                 Constants.contentType
-            ).days
+            ).days.orEmpty()
 
-            if (result.isNullOrEmpty()) {
-                Resource.Error(Exception("error"))
+            if (result.isEmpty()) {
+                Resource.Error(Exception("Weather data not found"))
             } else {
-                Resource.Success(result)
+                Resource.Success(result.map {
+                    it.mapToDayUI()
+                })
             }
-
 
         } catch (e: Exception) {
             Resource.Error(e)

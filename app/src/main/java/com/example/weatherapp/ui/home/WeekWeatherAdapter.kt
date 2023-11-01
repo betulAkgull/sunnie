@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.common.setAnim
-import com.example.weatherapp.data.model.Day
+import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.databinding.ItemWeekdayBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
 
 
 class WeekWeatherAdapter() :
-    ListAdapter<Day, WeekWeatherAdapter.WeakWeatherViewHolder>(ProductDiffCallBack()) {
+    ListAdapter<DayUI, WeekWeatherAdapter.WeakWeatherViewHolder>(ProductDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeakWeatherViewHolder =
         WeakWeatherViewHolder(
@@ -29,22 +29,22 @@ class WeekWeatherAdapter() :
     class WeakWeatherViewHolder(
         private val binding: ItemWeekdayBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(day: Day) = with(binding) {
+        fun bind(day: DayUI) = with(binding) {
 
             val dateTime = day.datetime
             tvDay.text = dayOfTheWeek(dateTime)
             ivWeather.setAnim(day.icon)
-            tvHighDegree.text = "${day.tempmax?.roundToInt().toString()}°"
-            tvLowDegree.text = "${day.tempmin?.roundToInt().toString()}°"
+            tvHighDegree.text = "${day.tempmax.roundToInt()}°"
+            tvLowDegree.text = "${day.tempmin.roundToInt()}°"
         }
     }
 
-    class ProductDiffCallBack : DiffUtil.ItemCallback<Day>() {
-        override fun areItemsTheSame(oldItem: Day, newItem: Day): Boolean {
+    class ProductDiffCallBack : DiffUtil.ItemCallback<DayUI>() {
+        override fun areItemsTheSame(oldItem: DayUI, newItem: DayUI): Boolean {
             return oldItem.datetime == newItem.datetime
         }
 
-        override fun areContentsTheSame(oldItem: Day, newItem: Day): Boolean {
+        override fun areContentsTheSame(oldItem: DayUI, newItem: DayUI): Boolean {
             return oldItem == newItem
         }
     }
