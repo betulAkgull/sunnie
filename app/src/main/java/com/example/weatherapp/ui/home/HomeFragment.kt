@@ -113,25 +113,37 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeState.Loading -> {
-                    setViewsGone(toolbar, constraintLayout, constraintlayoutSunriseSunset)
+                    setViewsGone(
+                        toolbar,
+                        constraintLayout,
+                        constraintlayoutSunriseSunset,
+                        rvDrawerLocations
+                    )
                     setViewsVisible(progressBar, progressBarDrawer)
                 }
 
                 is HomeState.DrawerWeatherList -> {
                     drawerSavedLocationsAdapter.submitList(state.weatherList)
                     setViewsGone(progressBar, progressBarDrawer)
-                    setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
+                    setViewsVisible(
+                        toolbar,
+                        constraintLayout,
+                        constraintlayoutSunriseSunset,
+                        rvDrawerLocations
+                    )
                 }
 
                 is HomeState.WeatherList -> {
                     weekWeatherAdapter.submitList(state.days)
                     setViewsGone(progressBar, progressBarDrawer)
-                    setViewsVisible(toolbar, constraintLayout, constraintlayoutSunriseSunset)
-
+                    setViewsVisible(
+                        toolbar,
+                        constraintLayout,
+                        constraintlayoutSunriseSunset,
+                        rvDrawerLocations
+                    )
                     toolbar.title = state.location.city
-
                     navViewHeader.tvLocation.text = state.location.city
-
                     setTodayData(state.today)
                 }
 
@@ -150,7 +162,8 @@ class HomeFragment : Fragment(R.layout.fragment_home),
                         constraintLayout,
                         constraintlayoutSunriseSunset,
                         progressBar,
-                        progressBarDrawer
+                        progressBarDrawer,
+                        rvDrawerLocations
                     )
                     showToast(state.throwable.message.orEmpty())
                 }
@@ -166,13 +179,12 @@ class HomeFragment : Fragment(R.layout.fragment_home),
 
     private fun setTodayData(day: DayUI) = with(binding) {
         ivWeather.setAnim(day.icon)
+        ivWeather.playAnimation()
         tvSunriseTime.text = day.sunrise.toHourMinute()
         tvSunsetTime.text = day.sunset.toHourMinute()
         tvRainPoss.text = day.precipprob.roundToInt().toString() + "%"
         tvUv.text = "UV Index ${day.uvindex.roundToInt()?.toUVLevelString()}"
-        tvMaxMin.text = "Max: ${day.tempmax.roundToInt().toString()}° Min: ${
-            day.tempmin.roundToInt().toString()
-        }° "
+        tvMaxMin.text = "Max: ${day.tempmax.roundToInt()}° Min: ${day.tempmin.roundToInt()}° "
         tvDegree.text = day.temp.roundToInt().toString() + "\u00B0"
         tvHumidity.text = day.humidity.roundToInt().toString() + "%"
         tvWind.text = day.windspeed.roundToInt().toString() + "km/h"

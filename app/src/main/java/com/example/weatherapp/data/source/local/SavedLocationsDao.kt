@@ -1,7 +1,6 @@
 package com.example.weatherapp.data.source.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,7 +15,7 @@ interface SavedLocationsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToSavedLocations(savedLocation: SavedLocationsEntity)
 
-    @Delete
-    suspend fun removeFromSavedLocations(savedLocation: SavedLocationsEntity)
+    @Query("DELETE FROM savedlocations WHERE latitude = :latitude and longitude =:longitude")
+    suspend fun removeFromSavedLocations(latitude: Double, longitude: Double)
 
 }

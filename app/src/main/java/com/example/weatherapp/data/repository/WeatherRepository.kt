@@ -47,7 +47,10 @@ class WeatherRepository(
     }
 
     suspend fun removeFromSavedLocations(location: Location) {
-        savedLocationsDao.removeFromSavedLocations(location.mapToSavedLocationEntity())
+        savedLocationsDao.removeFromSavedLocations(
+            location.mapToSavedLocationEntity().latitude,
+            location.mapToSavedLocationEntity().longitude
+        )
     }
 
     suspend fun getSavedLocations(): Resource<List<Location>> {

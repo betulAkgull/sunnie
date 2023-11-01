@@ -2,7 +2,6 @@ package com.example.weatherapp.ui.savedlocation
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,7 +11,6 @@ import com.example.weatherapp.common.setViewsGone
 import com.example.weatherapp.common.setViewsVisible
 import com.example.weatherapp.common.viewBinding
 import com.example.weatherapp.common.visible
-import com.example.weatherapp.data.model.DayUI
 import com.example.weatherapp.data.model.Location
 import com.example.weatherapp.databinding.FragmentSavedLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +33,10 @@ class SavedLocationFragment : Fragment(R.layout.fragment_saved_location),
                 findNavController().navigate(SavedLocationFragmentDirections.savedLocationToHome())
             }
 
+            btnAddNewLocation.setOnClickListener {
+                findNavController().navigate(SavedLocationFragmentDirections.savedLocationToSearch())
+            }
+
             rvLocation.adapter = savedLocationsAdapter
         }
 
@@ -54,14 +56,13 @@ class SavedLocationFragment : Fragment(R.layout.fragment_saved_location),
                 is SavedLocationsState.WeatherList -> {
                     progressBar.gone()
                     setViewsVisible(rvLocation, tvHeader, btnBack)
-
                     savedLocationsAdapter.submitList(state.weatherList)
-
                 }
 
                 is SavedLocationsState.Error -> {
-                    progressBar.visible()
-                    setViewsGone(rvLocation, tvHeader, btnBack)
+                    progressBar.gone()
+                    setViewsVisible(tvHeader, btnBack, tvEmptyScreen, btnAddNewLocation)
+                    setViewsGone(rvLocation)
                 }
 
             }

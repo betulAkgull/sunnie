@@ -36,14 +36,43 @@
         android:layout_marginStart="35dp"
         android:layout_marginBottom="20dp"
         android:text="@string/tvMyLocations"
-        app:layout_constraintBottom_toTopOf="@+id/rv_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
+    <TextView
+        android:id="@+id/tv_empty_screen"
+        style="@style/textMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/there_are_no_saved_locations"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_header"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <Button
+        android:id="@+id/btn_add_new_location"
+        style="@style/buttonLarge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btnHeightLarge"
+        android:text="@string/add_new_location"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_empty_screen"
+        app:layout_constraintVertical_bias="0.889" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_location"
         android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
