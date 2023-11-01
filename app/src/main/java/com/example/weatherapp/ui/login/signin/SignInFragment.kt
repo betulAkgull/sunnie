@@ -2,7 +2,6 @@ package com.example.weatherapp.ui.login.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -96,13 +95,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 }
 
                 is AuthState.AuthResultData -> {
-                    Log.e("google signin", state.authResult.user!!.email.toString())
-                    Toast.makeText(
-                        requireContext(),
-                        state.authResult.user!!.email.toString() + "," + state.authResult.user!!.displayName.toString(),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
                     findNavController().navigate(R.id.signinToHome)
                 }
 

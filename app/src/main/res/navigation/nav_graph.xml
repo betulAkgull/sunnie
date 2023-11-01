@@ -81,5 +81,8 @@
         <action
             android:id="@+id/savedLocationToHome"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/savedLocationToSearch"
+            app:destination="@id/locationFragment" />
     </fragment>
 </navigation>

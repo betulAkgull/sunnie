@@ -24,5 +24,7 @@
     <string name="_13_u00b0">13°</string>
     <string name="locations">locations</string>
     <string name="tvPopUp">Please allow location to continue.\nManage your location permissions.</string>
+    <string name="there_are_no_saved_locations">There are no saved locations</string>
+    <string name="add_new_location">add new location</string>
 
 </resources>

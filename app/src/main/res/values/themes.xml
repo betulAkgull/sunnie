@@ -22,30 +22,36 @@
     </style>
 
     <style name="textHeader">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/header</item>
         <item name="fontFamily">@font/sfproregular</item>
     </style>
 
     <style name="textSmall">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="fontFamily">@font/sfproregular</item>
     </style>
 
     <style name="textVerySmall">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textVerySmall</item>
         <item name="fontFamily">@font/sfproregular</item>
     </style>
 
     <style name="textMedium">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textMedium</item>
-        <item name="fontFamily">@font/sfprobold</item>
+        <item name="fontFamily">@font/sfpromedium</item>
     </style>
 
+
     <style name="textLarge">
+        <item name="android:textColor">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/textLarge</item>
         <item name="fontFamily">@font/sfproregular</item>
@@ -60,6 +66,7 @@
     </style>
 
     <style name="buttonSmall">
+        <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/buttonColor</item>
         <item name="android:background">@drawable/bg_button</item>
         <item name="android:textSize">@dimen/textSmall</item>
@@ -68,6 +75,7 @@
     </style>
 
     <style name="buttonLarge">
+        <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/buttonColor</item>
         <item name="android:background">@drawable/bg_button</item>
         <item name="android:textSize">@dimen/textSmall</item>

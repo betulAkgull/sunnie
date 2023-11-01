@@ -34,7 +34,9 @@ class SavedLocationsViewModel @Inject constructor(
                         savedLocations.data.map { location ->
                             when (val result = weatherRepository.getWeatherData(location)) {
                                 is Resource.Success -> tempList.add(Pair(result.data, location))
-                                is Resource.Error -> {}
+                                is Resource.Error -> {
+                                    SavedLocationsState.Error(result.throwable)
+                                }
                             }
                         }
 

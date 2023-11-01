@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -72,7 +73,6 @@ class HomeViewModel @Inject constructor(
                             is Resource.Error -> {}
                         }
                     }
-
                     HomeState.DrawerWeatherList(tempList)
                 }
 
@@ -118,7 +118,6 @@ sealed interface HomeState {
     object Loading : HomeState
     data class WeatherList(val today: DayUI, val days: List<DayUI>, val location: Location) :
         HomeState
-
     data class DrawerWeatherList(val weatherList: List<Pair<List<DayUI>, Location>>) : HomeState
     data class Error(val throwable: Throwable) : HomeState
     object LocationError : HomeState

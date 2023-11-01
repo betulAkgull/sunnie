@@ -37,10 +37,10 @@ class DrawerSavedLocationsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Pair<List<DayUI>, Location>) {
             binding.tvLocation.text = item.second.city
-            item.first.forEach {
-                binding.tvTemp.text = "${it.temp.roundToInt()}°"
-                binding.ivWeather.setAnim(it.icon)
-            }
+
+            binding.tvTemp.text = "${item.first[0].temp.roundToInt()}°"
+            binding.ivWeather.setAnim(item.first[0].icon)
+
 
             binding.root.setOnClickListener {
                 drawerSavedLocationsListener.onItemClick(item)
